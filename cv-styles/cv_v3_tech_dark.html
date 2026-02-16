@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temiloluwa Adeoti - CV (Tech)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-bg: #0a0a0a;
+            --dark-surface: #151515;
+            --cyan: #00fff9;
+            --purple: #a855f7;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: var(--dark-bg);
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                width: 210mm;
+                height: 297mm;
+            }
+            
+            .page {
+                page-break-after: always;
+                height: 297mm;
+                width: 210mm;
+            }
+
+            .page:last-child {
+                page-break-after: auto;
+            }
+        }
+
+        .page {
+            padding: 45px 50px;
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: var(--dark-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 0%, var(--cyan) 50%, transparent 100%) top/100% 1px no-repeat,
+                radial-gradient(circle at top right, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at bottom left, rgba(0, 255, 249, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(0, 255, 249, 0.03) 19px, rgba(0, 255, 249, 0.03) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(0, 255, 249, 0.03) 19px, rgba(0, 255, 249, 0.03) 20px);
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            border-left: 4px solid var(--cyan);
+            padding-left: 20px;
+            margin-bottom: 35px;
+        }
+
+        .name {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+        }
+
+        .title::before {
+            content: '> ';
+            color: var(--purple);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            margin-top: 25px;
+            padding: 15px;
+            background: var(--dark-surface);
+            border: 1px solid rgba(0, 255, 249, 0.2);
+            border-radius: 4px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .contact-label {
+            color: var(--cyan);
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+
+        .contact-value {
+            color: var(--text-secondary);
+        }
+
+        .contact-value a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-value a:hover {
+            color: var(--cyan);
+        }
+
+        .section-heading {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 32px 0 18px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .section-heading::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan);
+        }
+
+        .introduction {
+            font-size: 12px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: var(--dark-surface);
+            border-left: 3px solid var(--purple);
+            font-weight: 300;
+        }
+
+        .job {
+            margin-bottom: 25px;
+            padding: 18px;
+            background: rgba(21, 21, 21, 0.5);
+            border: 1px solid rgba(0, 255, 249, 0.1);
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .job::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--cyan), transparent);
+        }
+
+        .job-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 255, 249, 0.3);
+            border-radius: 2px;
+        }
+
+        .job-info {
+            flex: 1;
+        }
+
+        .job-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .job-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--cyan);
+        }
+
+        .job-description ul {
+            margin-left: 18px;
+            font-size: 11px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .job-description li {
+            margin-bottom: 8px;
+        }
+
+        .education-item {
+            margin-bottom: 18px;
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: var(--dark-surface);
+            border-radius: 4px;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .edu-logo {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+        }
+
+        .degree {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .edu-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--purple);
+        }
+
+        .skills-section {
+            margin-bottom: 25px;
+        }
+
+        .skill-category {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--cyan);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .skill-list {
+            font-size: 11px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .volunteer-item {
+            margin-bottom: 18px;
+            display: flex;
+            gap: 15px;
+            padding: 12px;
+            background: rgba(21, 21, 21, 0.5);
+            border-radius: 4px;
+        }
+
+        .org-logo {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 255, 249, 0.2);
+        }
+
+        .volunteer-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+
+        .volunteer-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        .cert-list, .lang-list {
+            margin-left: 20px;
+            font-size: 11px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .cert-list li, .lang-list li {
+            margin-bottom: 6px;
+        }
+
+        .tech-footer {
+            position: absolute;
+            bottom: 30px;
+            right: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: var(--cyan);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1 -->
+    <div class="page">
+        <div class="grid-pattern"></div>
+        <div class="content">
+            <div class="header">
+                <h1 class="name">Temiloluwa Adeoti</h1>
+                <h2 class="title">Data Scientist</h2>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <span class="contact-label">Location</span>
+                    <span class="contact-value">Munich, Germany</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Phone</span>
+                    <span class="contact-value">0159 0683 7701</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">temilolu74@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Portfolio</span>
+                    <span class="contact-value"><a href="https://temiloluwa.github.io">temiloluwa.github.io</a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">LinkedIn</span>
+                    <span class="contact-value"><a href="https://www.linkedin.com/in/temiadeoti/">in/temiadeoti</a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Github</span>
+                    <span class="contact-value"><a href="https://github.com/Temiloluwa">Temiloluwa</a></span>
+                </div>
+            </div>
+
+            <h3 class="section-heading">Profile</h3>
+            <p class="introduction">
+                Seasoned Data Scientist with extensive experience spanning automotive, insurance, information 
+                technology, research, and oil & gas industries. Proficient in harnessing Cloud Technologies (AWS and Azure), 
+                Python, Typescript, and SQL, to develop data-driven solutions to address complex challenges.
+            </p>
+
+            <h3 class="section-heading">Experience</h3>
+
+            <div class="job">
+                <div class="job-header">
+                    <svg class="company-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" fill="#0a0a0a"/>
+                        <rect width="100" height="100" fill="none" stroke="#00fff9" stroke-width="2"/>
+                        <path d="M25 35 L35 50 L25 65 M45 35 L55 50 L45 65 M65 50 L75 50" stroke="#00fff9" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <div class="job-info">
+                        <div class="job-title">Machine Learning Consultant | Machine Learning Reply GmbH</div>
+                        <div class="job-period">04.2022 - PRESENT</div>
+                    </div>
+                </div>
+                <div class="job-description">
+                    <ul>
+                        <li>Played a key role in teams of four, driving revenue surpassing 500 thousand Euros by implementing Machine Learning projects for renowned German corporations including Allianz, Volkswagen, and Porsche.</li>
+                        <li>Built and deployed a containerized and privacy-preserving Retrieval-Augmented Generation (RAG) Question Answering API on Azure, leveraging OpenAI embeddings and GPT-3.5, and exposed it using FastAPI to support lawyers in legal case creation.</li>
+                        <li>Effectively migrated approximately 1 Petabytes of data from Cloudera to AWS for a client, rearchitecting Apache Pig and Hive jobs to Apache Spark on AWS EMR. Implemented lean continuous deployment workflows with Gitlab and Azure Managed Airflow</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <svg class="company-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" fill="#0a0a0a"/>
+                        <rect width="100" height="100" fill="none" stroke="#a855f7" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="20" fill="none" stroke="#a855f7" stroke-width="3"/>
+                        <text x="50" y="56" font-family="monospace" font-size="14" fill="#a855f7" text-anchor="middle" font-weight="bold">FHG</text>
+                    </svg>
+                    <div class="job-info">
+                        <div class="job-title">Data Scientist | Fraunhofer IKS</div>
+                        <div class="job-period">05.2021 - 03.2022</div>
+                    </div>
+                </div>
+                <div class="job-description">
+                    <ul>
+                        <li>Created hybrid anomaly detection system for industrial drills, combining deep learning (VAE) and rule-based methods. Collaborated with domain experts to ensure effectiveness in production by gathering insights and refining models</li>
+                        <li>Employed cutting-edge Contrastive learning methods (MoCo) to enhance accuracy in the development of deep-learning based anomaly detection pipelines.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <svg class="company-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" fill="#0a0a0a"/>
+                        <rect width="100" height="100" fill="none" stroke="#00fff9" stroke-width="2"/>
+                        <text x="50" y="58" font-family="monospace" font-size="24" fill="#00fff9" text-anchor="middle" font-weight="bold">SLB</text>
+                    </svg>
+                    <div class="job-info">
+                        <div class="job-title">Field Engineer | Schlumberger</div>
+                        <div class="job-period">12.2015 - 04.2018</div>
+                    </div>
+                </div>
+                <div class="job-description">
+                    <ul>
+                        <li>Managed multimillion-dollar projects to revitalize oil wells, conducting mathematical simulations, laboratory experiments, and preparing job execution programs for both land and offshore rigs.</li>
+                        <li>Installed on-site sensors to collect essential data on pressure, speed, and temperature, conducting real-time monitoring to analyze data and coordinate job progress effectively, ensuring top-notch client service delivery.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-heading">Education</h3>
+
+            <div class="education-item">
+                <svg class="edu-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#0a0a0a"/>
+                    <rect x="10" y="10" width="80" height="80" fill="none" stroke="#00fff9" stroke-width="2"/>
+                    <polygon points="50,35 60,50 50,65 40,50" fill="#00fff9"/>
+                </svg>
+                <div>
+                    <div class="degree">Master's in Data Analytics | Universität Hildesheim</div>
+                    <div class="edu-period">2019 - 2021 | GRADE: 1.6</div>
+                </div>
+            </div>
+
+            <div class="education-item">
+                <svg class="edu-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#0a0a0a"/>
+                    <rect x="10" y="10" width="80" height="80" fill="none" stroke="#a855f7" stroke-width="2"/>
+                    <circle cx="50" cy="40" r="12" fill="none" stroke="#a855f7" stroke-width="2"/>
+                    <rect x="38" y="52" width="24" height="28" fill="none" stroke="#a855f7" stroke-width="2"/>
+                </svg>
+                <div>
+                    <div class="degree">Bachelor's in Electrical & Electronic Engineering | University of Ibadan</div>
+                    <div class="edu-period">2008 - 2013 | FIRST CLASS HONOURS</div>
+                </div>
+            </div>
+        </div>
+        <div class="tech-footer">PAGE_01</div>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="page">
+        <div class="grid-pattern"></div>
+        <div class="content">
+            <h3 class="section-heading" style="margin-top: 0;">Technical Stack</h3>
+
+            <div class="skills-section">
+                <div class="skill-category">Data Science & Engineering</div>
+                <div class="skill-list">
+                    Pyspark · SQL · AWS Glue · Azure Synapse · AWS EMR · PyTorch · Tensorflow · Hugging Face · Langchain · LlamaIndex · HayStack
+                </div>
+
+                <div class="skill-category">MLOps & DevOps</div>
+                <div class="skill-list">
+                    Terraform · Sagemaker · MLFlow · Flyte · ArgoWorkflows · Gitlab · Kubernetes (EKS, AKS) · Docker Swarm · Prometheus · Grafana · FastAPI · AWS API Gateway · AWS Lambda · AWS Route 53 · DVC
+                </div>
+            </div>
+
+            <h3 class="section-heading">Community</h3>
+
+            <div class="volunteer-item">
+                <svg class="org-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#0a0a0a"/>
+                    <rect width="100" height="100" fill="none" stroke="#00fff9" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="22" fill="none" stroke="#00fff9" stroke-width="3"/>
+                    <text x="50" y="56" font-family="monospace" font-size="12" fill="#00fff9" text-anchor="middle" font-weight="bold">ReDI</text>
+                </svg>
+                <div>
+                    <div class="volunteer-title">Data Analytics Teacher | ReDI School of Digital Integration</div>
+                    <div class="volunteer-period">02.2022 - PRESENT</div>
+                </div>
+            </div>
+
+            <div class="volunteer-item">
+                <svg class="org-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#0a0a0a"/>
+                    <rect width="100" height="100" fill="none" stroke="#a855f7" stroke-width="2"/>
+                    <text x="50" y="52" font-family="monospace" font-size="18" fill="#a855f7" text-anchor="middle" font-weight="bold">AWS</text>
+                    <path d="M30 68 Q50 60 70 68" stroke="#a855f7" stroke-width="2" fill="none"/>
+                </svg>
+                <div>
+                    <div class="volunteer-title">AWS Community Builder</div>
+                    <div class="volunteer-period">04.2021 - PRESENT</div>
+                </div>
+            </div>
+
+            <div class="volunteer-item">
+                <svg class="org-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#0a0a0a"/>
+                    <rect width="100" height="100" fill="none" stroke="#00fff9" stroke-width="2"/>
+                    <circle cx="50" cy="45" r="18" fill="none" stroke="#00fff9" stroke-width="2"/>
+                    <circle cx="50" cy="45" r="8" fill="#00fff9"/>
+                    <text x="50" y="72" font-family="monospace" font-size="9" fill="#00fff9" text-anchor="middle">DeepL.ai</text>
+                </svg>
+                <div>
+                    <div class="volunteer-title">NLP Tutor | Deep Learning.ai</div>
+                    <div class="volunteer-period">02.2021 - 05.2021</div>
+                </div>
+            </div>
+
+            <h3 class="section-heading">Certifications</h3>
+
+            <ol class="cert-list">
+                <li>AWS Machine Learning Speciality</li>
+                <li>AWS Solution's Architect Associate</li>
+                <li>AWS Cloud Practitioner</li>
+                <li>Terraform Associate</li>
+                <li>Azure Fundamentals</li>
+                <li>TELC Deutsch B2</li>
+                <li>TELC Deutsch B1</li>
+            </ol>
+
+            <h3 class="section-heading">Languages</h3>
+
+            <ol class="lang-list">
+                <li><strong>English</strong> — Fluent (C2)</li>
+                <li><strong>German</strong> — Advanced (B2)</li>
+                <li><strong>French</strong> — Basic (A2)</li>
+            </ol>
+        </div>
+        <div class="tech-footer">PAGE_02</div>
+    </div>
+</body>
+</html>

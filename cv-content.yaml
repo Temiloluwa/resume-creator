@@ -1,0 +1,116 @@
+basics:
+  name: Temiloluwa Adeoti
+  label: Senior Applied AI Engineer | AI Systems Architect
+  email: temilolu74@gmail.com
+  phone: "+49 159 0683 7701"
+  location: Munich, Germany
+  profiles:
+    - network: LinkedIn
+      username: temiadeoti
+      url: https://linkedin.com/in/temiadeoti
+    - network: GitHub
+      username: Temiloluwa
+      url: https://github.com/Temiloluwa
+    - network: Website
+      username: temiloluwa.github.io
+      url: https://temiloluwa.github.io
+
+introduction: >
+  Applied AI Engineer specializing in the design, deployment, and operation of data-centric, production AI systems.
+  Combines strong foundations in machine learning with deep experience in cloud infrastructure, Kubernetes, and observability
+  to deliver reliable, cost-aware AI solutions that operate at scale. Experienced across the full AI lifecycle—from problem
+  formulation and dataset design to model adaptation and long-running inference systems.
+
+core_expertise:
+  - AI Systems Design & Production Deployment
+  - Data-Centric AI (Synthetic Data, Error-Driven Datasets)
+  - Multimodal AI (OCR, Vision-Language)
+  - Model Adaptation (LoRA, RAG, Hybrid Architectures)
+  - Kubernetes-based AI Inference Systems
+  - Observability & Drift Detection
+  - Cost-Aware AI Deployment
+  - Cloud-Native AI Platforms (AWS, Terraform)
+
+experience:
+  - company: YouGov (formerly GfK)
+    position: Machine Learning Engineer
+    location: Nuremberg
+    startDate: July 2024
+    endDate: Present
+    summary: AI Systems & Multimodal Intelligence
+    highlights:
+      - Led development of a Receipt Intelligence Platform delivering a multimodal pipeline combining OCR, vision-language models, and LLMs to extract structured FMCG data across diverse international receipt formats.
+      - Designed data-centric evaluation workflows, including synthetic dataset generation and error-driven retraining loops to improve robustness against real-world noise and layout variability.
+      - Architected scalable serverless inference pipelines using AWS Bedrock, Lambda, SQS, MongoDB, and Terraform to enable automated processing with minimal operational overhead.
+      - Implemented ML observability frameworks leveraging ELK to monitor model behavior, latency, and failure patterns across production deployments.
+      - Contributed to internal MLOps strategy integrating SageMaker Pipelines and GitLab CI/CD for controlled model release and lifecycle management.
+
+  - company: Machine Learning Reply GmbH
+    position: Machine Learning Consultant
+    location: Munich
+    startDate: April 2022
+    endDate: May 2024
+    highlights:
+      - Delivered applied AI and data platform solutions for enterprise clients including Allianz, Volkswagen, and Porsche.
+      - Built containerized RAG-based knowledge systems on Azure using OpenAI embeddings and FastAPI, enabling privacy-preserving legal document analysis workflows.
+      - Designed and operated Kubernetes-based data and ML platforms using Argo Workflows, Prometheus, and Grafana, reducing incident detection time by ~50%.
+      - Migrated ~1 PB of legacy data infrastructure from Cloudera to AWS, redesigning pipelines using Spark on EMR and modern CI/CD deployment patterns.
+      - Developed secure data ingestion pipelines integrating on-prem APIs with Azure Synapse for enterprise analytics use cases.
+
+  - company: Fraunhofer IKS
+    position: Data Scientist (Research Engineer)
+    location: Munich
+    startDate: May 2021
+    endDate: March 2022
+    highlights:
+      - Researched hybrid anomaly detection systems combining deep learning and rule-based reasoning for safety-critical environments.
+      - Applied contrastive learning (MoCo) to improve model robustness under sparse anomaly scenarios.
+      - Collaborated with domain experts to transition research prototypes into production-viable system designs.
+
+education:
+  - institution: Universität Hildesheim
+    area: M.Sc. Data Analytics
+    date: 2021
+    grade: Grade 1.6
+  - institution: University of Ibadan
+    area: B.Sc. Electrical & Electronic Engineering
+    grade: First Class Honours
+
+skills:
+  - category: AI & Machine Learning
+    keywords: Python, PyTorch, Hugging Face, LoRA / PEFT, RAG Architectures, Multimodal AI
+  - category: AI Systems & Infrastructure
+    keywords: Kubernetes, Docker, Terraform, GitLab CI/CD, Model Serving Architectures
+  - category: Cloud Platforms
+    keywords: AWS (Bedrock, SageMaker, Lambda, SQS, EMR), Azure (Synapse, OpenAI)
+  - category: Observability & Operations
+    keywords: Prometheus, Grafana, ELK Stack, Production Monitoring & Drift Detection
+  - category: Data Engineering
+    keywords: PySpark, SQL, Data Pipeline Architecture
+  - category: Systems Languages
+    keywords: Rust, Go (Working Knowledge)
+
+certifications:
+  - AWS Machine Learning Specialty
+  - AWS Solutions Architect Associate
+  - Terraform Associate
+  - Azure Fundamentals
+
+volunteers:
+  - organization: ReDI School of Digital Integration
+    position: Data Analytics Instructor
+    period: 2023–2025
+  - organization: AWS Community Builder
+    position: AWS Community Builder
+    period: 2021–2025
+  - organization: DeepLearning.AI
+    position: NLP Tutor
+    period: 2021
+
+professional_focus:
+  intro: "Designing AI systems that:"
+  details:
+    - Solve practical business problems through structured problem formulation
+    - Leverage curated, high-signal datasets rather than brute-force model scaling
+    - Adapt foundation models efficiently using LoRA, retrieval, and hybrid strategies
+    - Operate reliably in production with observability, cost control, and lifecycle governance

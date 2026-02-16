@@ -1,0 +1,141 @@
+Below is a clean, ready-to-paste CV aligned with your positioning as an Applied AI Systems / AI Solutions Architect focused on inference, data-centric AI, and production systems.
+
+You can paste this directly into Word and apply your preferred styling.
+
+⸻
+
+Temiloluwa Adeoti
+
+Senior Applied AI Engineer | AI Systems Architect
+Munich, Germany
+📧 temilolu74@gmail.com | 📞 +49 159 0683 7701
+🔗 linkedin.com/in/temiadeoti
+💻 github.com/Temiloluwa | gitlab.com/Temiloluwa1
+🌐 temiloluwa.github.io
+
+⸻
+
+PROFESSIONAL SUMMARY
+
+Applied AI Engineer specializing in the design, deployment, and operation of data-centric, production AI systems.
+Combines strong foundations in machine learning with deep experience in cloud infrastructure, Kubernetes, and observability to deliver reliable, cost-aware AI solutions that operate at scale.
+
+Experienced across the full AI lifecycle—from problem formulation and dataset design to model adaptation and long-running inference systems—with particular focus on multimodal document intelligence, evaluation-driven development, and production reliability.
+
+⸻
+
+CORE EXPERTISE
+	•	AI Systems Design & Production Deployment
+	•	Data-Centric AI (Synthetic Data, Error-Driven Datasets, Evaluation Loops)
+	•	Multimodal AI (Document, Vision-Language, OCR-Driven Workloads)
+	•	Model Adaptation (LoRA, RAG, Hybrid Architectures)
+	•	Kubernetes-based AI Inference Systems
+	•	Observability, Drift Detection, and Operational AI Reliability
+	•	Cost-Aware AI Deployment & Model Lifecycle Management
+	•	Cloud-Native AI Platforms (AWS, Terraform, CI/CD)
+
+⸻
+
+PROFESSIONAL EXPERIENCE
+
+YouGov (formerly GfK) — Machine Learning Engineer
+
+Nuremberg | July 2024 – Present
+
+AI Systems & Multimodal Intelligence
+	•	Led development of a Receipt Intelligence Platform as part of internal IP initiatives, delivering a multimodal pipeline combining OCR, vision-language models, and LLMs to extract structured FMCG data across diverse international receipt formats.
+	•	Designed data-centric evaluation workflows, including synthetic dataset generation and error-driven retraining loops to improve robustness against real-world noise and layout variability.
+	•	Architected scalable serverless inference pipelines using AWS Bedrock, Lambda, SQS, MongoDB, and Terraform to enable automated processing with minimal operational overhead.
+	•	Implemented ML observability frameworks leveraging ELK to monitor model behavior, latency, and failure patterns across production deployments.
+	•	Contributed to internal MLOps strategy integrating SageMaker Pipelines and GitLab CI/CD for controlled model release and lifecycle management.
+
+⸻
+
+Machine Learning Reply GmbH — Machine Learning Consultant
+
+Munich | April 2022 – May 2024
+	•	Delivered applied AI and data platform solutions for enterprise clients including Allianz, Volkswagen, and Porsche.
+	•	Built containerized RAG-based knowledge systems on Azure using OpenAI embeddings and FastAPI, enabling privacy-preserving legal document analysis workflows.
+	•	Designed and operated Kubernetes-based data and ML platforms using Argo Workflows, Prometheus, and Grafana, reducing incident detection time by ~50%.
+	•	Migrated ~1 PB of legacy data infrastructure from Cloudera to AWS, redesigning pipelines using Spark on EMR and modern CI/CD deployment patterns.
+	•	Developed secure data ingestion pipelines integrating on-prem APIs with Azure Synapse for enterprise analytics use cases.
+
+⸻
+
+Fraunhofer IKS — Data Scientist (Research Engineer)
+
+Munich | May 2021 – March 2022
+	•	Researched hybrid anomaly detection systems combining deep learning and rule-based reasoning for safety-critical environments.
+	•	Applied contrastive learning (MoCo) to improve model robustness under sparse anomaly scenarios.
+	•	Collaborated with domain experts to transition research prototypes into production-viable system designs.
+
+⸻
+
+TECHNICAL SKILLS
+
+AI & Machine Learning
+
+Python · PyTorch · Hugging Face · LoRA / PEFT · RAG Architectures · Multimodal AI
+
+AI Systems & Infrastructure
+
+Kubernetes · Docker · Terraform · GitLab CI/CD · Model Serving Architectures
+
+Cloud Platforms
+
+AWS (Bedrock, SageMaker, Lambda, SQS, EMR) · Azure (Synapse, OpenAI)
+
+Observability & Operations
+
+Prometheus · Grafana · ELK Stack · Production Monitoring & Drift Detection
+
+Data Engineering
+
+PySpark · SQL · Data Pipeline Architecture
+
+Systems Languages (Working Knowledge)
+
+Rust · Go
+
+⸻
+
+EDUCATION
+
+M.Sc. Data Analytics
+Universität Hildesheim — 2021 (Grade 1.6)
+
+B.Sc. Electrical & Electronic Engineering
+University of Ibadan — First Class Honours
+
+⸻
+
+CERTIFICATIONS
+	•	AWS Machine Learning Specialty
+	•	AWS Solutions Architect Associate
+	•	Terraform Associate
+	•	Azure Fundamentals
+
+⸻
+
+TEACHING & COMMUNITY
+	•	Data Analytics Instructor — ReDI School of Digital Integration (2023–2025)
+	•	AWS Community Builder (2021–2025)
+	•	NLP Tutor — DeepLearning.AI (2021)
+
+⸻
+
+PROFESSIONAL FOCUS
+
+Designing AI systems that:
+	•	Solve practical business problems through structured problem formulation
+	•	Leverage curated, high-signal datasets rather than brute-force model scaling
+	•	Adapt foundation models efficiently using LoRA, retrieval, and hybrid strategies
+	•	Operate reliably in production with observability, cost control, and lifecycle governance
+
+⸻
+
+If you’d like next, I can generate:
+	•	A short 1-page version for recruiters
+	•	A LaTeX version
+	•	A portfolio README aligned to this CV
+	•	Or tailor this CV to a specific job description you’re applying to.

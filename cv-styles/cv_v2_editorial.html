@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temiloluwa Adeoti - CV (Editorial)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Lora:wght@400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --burgundy: #5C1A1A;
+            --gold: #B8860B;
+            --cream: #F5F5DC;
+            --charcoal: #2C2C2C;
+        }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            color: var(--charcoal);
+            line-height: 1.7;
+            background: linear-gradient(135deg, #FAF9F6 0%, #F5F5DC 100%);
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                width: 210mm;
+                height: 297mm;
+                background: white;
+            }
+            
+            .page {
+                page-break-after: always;
+                height: 297mm;
+                width: 210mm;
+            }
+
+            .page:last-child {
+                page-break-after: auto;
+            }
+        }
+
+        .page {
+            padding: 50px 60px;
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            position: relative;
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--burgundy), var(--gold));
+        }
+
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 900;
+            color: var(--burgundy);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .header-divider {
+            width: 80px;
+            height: 2px;
+            background: var(--burgundy);
+            margin: 20px 0 30px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px 30px;
+            font-size: 12px;
+            margin-bottom: 35px;
+            padding: 20px;
+            background: rgba(184, 134, 11, 0.05);
+            border-left: 3px solid var(--gold);
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 8px;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            color: var(--burgundy);
+            min-width: 80px;
+        }
+
+        .contact-value a {
+            color: var(--charcoal);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .contact-value a:hover {
+            border-bottom-color: var(--gold);
+        }
+
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--burgundy);
+            margin: 35px 0 20px 0;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .introduction {
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--charcoal);
+            margin-bottom: 20px;
+            font-style: italic;
+            padding-left: 20px;
+            border-left: 2px solid var(--gold);
+        }
+
+        .experience-item {
+            margin-bottom: 28px;
+            position: relative;
+            padding-left: 75px;
+        }
+
+        .company-logo {
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 55px;
+            height: 55px;
+        }
+
+        .job-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--burgundy);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .job-period {
+            font-size: 12px;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .job-description ul {
+            margin-left: 18px;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .job-description li {
+            margin-bottom: 8px;
+        }
+
+        .education-item {
+            margin-bottom: 18px;
+            padding-left: 65px;
+            position: relative;
+        }
+
+        .edu-logo {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+        }
+
+        .degree {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--burgundy);
+            margin-bottom: 3px;
+            line-height: 1.4;
+        }
+
+        .edu-period {
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .skills-grid {
+            display: grid;
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .skill-category {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--burgundy);
+            margin-bottom: 6px;
+        }
+
+        .skill-list {
+            font-size: 12px;
+            line-height: 1.8;
+            color: var(--charcoal);
+        }
+
+        .volunteer-item {
+            margin-bottom: 18px;
+            padding-left: 65px;
+            position: relative;
+        }
+
+        .org-logo {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+        }
+
+        .volunteer-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--burgundy);
+            margin-bottom: 3px;
+            line-height: 1.4;
+        }
+
+        .volunteer-period {
+            font-size: 11px;
+            font-style: italic;
+            color: #666;
+        }
+
+        .cert-list, .lang-list {
+            margin-left: 20px;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .cert-list li, .lang-list li {
+            margin-bottom: 5px;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 30px;
+            right: 60px;
+            font-family: 'Playfair Display', serif;
+            font-size: 11px;
+            color: var(--gold);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1 -->
+    <div class="page">
+        <h1 class="name">Temiloluwa Adeoti</h1>
+        <h2 class="title">Data Scientist</h2>
+        <div class="header-divider"></div>
+
+        <div class="contact-grid">
+            <div class="contact-item">
+                <span class="contact-label">Address</span>
+                <span class="contact-value">Paosostraße 55, 81243 Munich</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">Telephone</span>
+                <span class="contact-value">0159 0683 7701</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">temilolu74@gmail.com</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">Website</span>
+                <span class="contact-value"><a href="https://temiloluwa.github.io">temiloluwa.github.io</a></span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">LinkedIn</span>
+                <span class="contact-value"><a href="https://www.linkedin.com/in/temiadeoti/">linkedin.com/in/temiadeoti/</a></span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">Github</span>
+                <span class="contact-value"><a href="https://github.com/Temiloluwa">github.com/Temiloluwa</a></span>
+            </div>
+        </div>
+
+        <h3 class="section-heading">Profile</h3>
+        <p class="introduction">
+            Seasoned Data Scientist with extensive experience spanning automotive, insurance, information 
+            technology, research, and oil & gas industries. Proficient in harnessing Cloud Technologies (AWS and Azure), 
+            Python, Typescript, and SQL, to develop data-driven solutions to address complex challenges.
+        </p>
+
+        <h3 class="section-heading">Professional Experience</h3>
+
+        <div class="experience-item">
+            <svg class="company-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#5C1A1A"/>
+                <path d="M20 30 L35 50 L20 70 M45 30 L60 50 L45 70 M65 50 L80 50" stroke="#B8860B" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="job-title">Machine Learning Consultant<br>Machine Learning Reply GmbH, Munich</div>
+            <div class="job-period">April 2022 — Present</div>
+            <div class="job-description">
+                <ul>
+                    <li>Played a key role in teams of four, driving revenue surpassing 500 thousand Euros by implementing Machine Learning projects for renowned German corporations including Allianz, Volkswagen, and Porsche.</li>
+                    <li>Built and deployed a containerized and privacy-preserving Retrieval-Augmented Generation (RAG) Question Answering API on Azure, leveraging OpenAI embeddings and GPT-3.5, and exposed it using FastAPI to support lawyers in legal case creation.</li>
+                    <li>Effectively migrated approximately 1 Petabytes of data from Cloudera to AWS for a client, rearchitecting Apache Pig and Hive jobs to Apache Spark on AWS EMR. Implemented lean continuous deployment workflows with Gitlab and Azure Managed Airflow</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="experience-item">
+            <svg class="company-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#B8860B"/>
+                <text x="50" y="42" font-family="serif" font-size="24" font-weight="bold" fill="#5C1A1A" text-anchor="middle">FHG</text>
+                <text x="50" y="62" font-family="serif" font-size="14" fill="#5C1A1A" text-anchor="middle" font-style="italic">IKS</text>
+            </svg>
+            <div class="job-title">Data Scientist<br>Fraunhofer IKS, Munich</div>
+            <div class="job-period">May 2021 — March 2022</div>
+            <div class="job-description">
+                <ul>
+                    <li>Created hybrid anomaly detection system for industrial drills, combining deep learning (VAE) and rule-based methods. Collaborated with domain experts to ensure effectiveness in production by gathering insights and refining models</li>
+                    <li>Employed cutting-edge Contrastive learning methods (MoCo) to enhance accuracy in the development of deep-learning based anomaly detection pipelines.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="experience-item">
+            <svg class="company-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#5C1A1A"/>
+                <text x="50" y="58" font-family="serif" font-size="28" font-weight="bold" fill="#B8860B" text-anchor="middle">SLB</text>
+            </svg>
+            <div class="job-title">Field Engineer<br>Schlumberger, Port-Harcourt</div>
+            <div class="job-period">December 2015 — April 2018</div>
+            <div class="job-description">
+                <ul>
+                    <li>Managed multimillion-dollar projects to revitalize oil wells, conducting mathematical simulations, laboratory experiments, and preparing job execution programs for both land and offshore rigs.</li>
+                    <li>Installed on-site sensors to collect essential data on pressure, speed, and temperature, conducting real-time monitoring to analyze data and coordinate job progress effectively, ensuring top-notch client service delivery.</li>
+                    <li>Oversaw project management tasks, including personnel, product, and material preparation for site deployment, resource management on-site, financial management during operations, and client debriefings.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 class="section-heading">Education</h3>
+
+        <div class="education-item">
+            <svg class="edu-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#5C1A1A"/>
+                <circle cx="50" cy="40" r="20" fill="none" stroke="#B8860B" stroke-width="3"/>
+                <rect x="35" y="55" width="30" height="25" fill="none" stroke="#B8860B" stroke-width="3"/>
+            </svg>
+            <div class="edu-details">
+                <div class="degree">Master's in Data Analytics, Universität Hildesheim</div>
+                <div class="edu-period">2019 — 2021, Grade 1.6</div>
+            </div>
+        </div>
+
+        <div class="education-item">
+            <svg class="edu-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#B8860B"/>
+                <path d="M30 50 L50 30 L70 50 L50 70 Z" fill="#5C1A1A"/>
+                <circle cx="50" cy="50" r="8" fill="#B8860B"/>
+            </svg>
+            <div class="edu-details">
+                <div class="degree">Bachelor's in Electrical and Electronic Engineering, University of Ibadan</div>
+                <div class="edu-period">2008 — 2013, First Class Honours</div>
+            </div>
+        </div>
+
+        <div class="page-number">Page 1 of 2</div>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="page">
+        <h3 class="section-heading" style="margin-top: 0;">Core Competencies</h3>
+
+        <div class="skills-grid">
+            <div>
+                <div class="skill-category">Data Science & Data Engineering</div>
+                <div class="skill-list">
+                    Pyspark, SQL, AWS Glue, Azure Synapse, AWS EMR, PyTorch, Tensorflow, Hugging Face, Langchain, LlamaIndex, HayStack
+                </div>
+            </div>
+
+            <div>
+                <div class="skill-category">Machine Learning Operations</div>
+                <div class="skill-list">
+                    Terraform, Sagemaker, MLFlow, Flyte, ArgoWorkflows, Gitlab, Kubernetes (EKS, AKS), Docker Swarm, Prometheus, Grafana, FastAPI, AWS API Gateway, AWS Lambda, AWS Route 53, DVC
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-heading">Community Engagement</h3>
+
+        <div class="volunteer-item">
+            <svg class="org-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#5C1A1A"/>
+                <circle cx="50" cy="50" r="25" fill="none" stroke="#B8860B" stroke-width="4"/>
+                <text x="50" y="58" font-family="serif" font-size="18" font-weight="bold" fill="#B8860B" text-anchor="middle">ReDI</text>
+            </svg>
+            <div class="volunteer-details">
+                <div class="volunteer-title">Data Analytics Teacher, ReDI School of Digital Integration, Munich</div>
+                <div class="volunteer-period">February 2022 — Present</div>
+            </div>
+        </div>
+
+        <div class="volunteer-item">
+            <svg class="org-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#B8860B"/>
+                <text x="50" y="48" font-family="serif" font-size="26" font-weight="bold" fill="#5C1A1A" text-anchor="middle">AWS</text>
+                <path d="M25 70 Q50 60 75 70" stroke="#5C1A1A" stroke-width="3" fill="none"/>
+            </svg>
+            <div class="volunteer-details">
+                <div class="volunteer-title">AWS Community Builder</div>
+                <div class="volunteer-period">April 2021 — Present</div>
+            </div>
+        </div>
+
+        <div class="volunteer-item">
+            <svg class="org-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#5C1A1A"/>
+                <circle cx="50" cy="45" r="18" fill="none" stroke="#B8860B" stroke-width="3"/>
+                <circle cx="50" cy="45" r="8" fill="#B8860B"/>
+                <text x="50" y="75" font-family="serif" font-size="10" fill="#B8860B" text-anchor="middle">DeepLearning.ai</text>
+            </svg>
+            <div class="volunteer-details">
+                <div class="volunteer-title">NLP Tutor, Deep Learning.ai</div>
+                <div class="volunteer-period">February 2021 — May 2021</div>
+            </div>
+        </div>
+
+        <h3 class="section-heading">Professional Certifications</h3>
+
+        <ol class="cert-list">
+            <li>AWS Machine Learning Speciality</li>
+            <li>AWS Solution's Architect Associate</li>
+            <li>AWS Cloud Practitioner</li>
+            <li>Terraform Associate</li>
+            <li>Azure Fundamentals</li>
+            <li>TELC Deutsch B2</li>
+            <li>TELC Deutsch B1</li>
+        </ol>
+
+        <h3 class="section-heading">Languages</h3>
+
+        <ol class="lang-list">
+            <li><strong>English</strong> — Fluent (C2)</li>
+            <li><strong>German</strong> — Advanced (B2)</li>
+            <li><strong>French</strong> — Basic (A2)</li>
+        </ol>
+
+        <div class="page-number">Page 2 of 2</div>
+    </div>
+</body>
+</html>
