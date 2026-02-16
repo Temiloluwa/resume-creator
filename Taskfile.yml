@@ -1,22 +1,36 @@
 version: '3'
 
-tasks:
-  install:
-    desc: Install Python dependencies and Chromium for PDF rendering
-    cmds:
-      - uv sync
-      - uv run playwright install chromium
+env:
+  DYLD_FALLBACK_LIBRARY_PATH: /opt/homebrew/lib:/opt/homebrew/opt/libffi/lib
 
-  clean:
-    desc: Remove generated HTML and PDF files
+tasks:
+  setup:
+    desc: Install project dependencies in the uv environment
     cmds:
-      - rm -f output/*.html output/*.pdf
+      - uv sync --all-groups
+
+  html:
+    desc: Generate all fitted two-page HTML CVs
+    cmds:
+      - uv run cv-gen html
+
+  pdf:
+    desc: Convert generated HTML CVs to PDF
+    cmds:
+      - uv run cv-gen pdf
 
   build:
-    desc: Build all CV styles (HTML + PDF) with validation
+    desc: Generate HTML and PDF CVs
     cmds:
-      - uv run src/build_cv.py --max-pages 2
+      - uv run cv-gen all
 
-  default:
+  clean:
+    desc: Remove generated CV artifacts
     cmds:
-      - task: build
+      - uv run cv-gen clean
+
+  rebuild:
+    desc: Clean and rebuild all artifacts
+    cmds:
+      - task clean
+      - task build

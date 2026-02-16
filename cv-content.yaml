@@ -16,19 +16,18 @@ basics:
       url: https://temiloluwa.github.io
 
 introduction: >
-  Applied AI Engineer specializing in the design, deployment, and operation of data-centric, production AI systems.
-  Combines strong foundations in machine learning with deep experience in cloud infrastructure, Kubernetes, and observability
-  to deliver reliable, cost-aware AI solutions that operate at scale. Experienced across the full AI lifecycle—from problem
-  formulation and dataset design to model adaptation and long-running inference systems.
+  Applied AI Engineer focused on designing, deploying, and operating long-running,
+  data-centric AI systems. Combines strong machine learning foundations with cloud-native
+  infrastructure and observability practices to deliver reliable, cost-aware AI solutions.
+  Brings an interdisciplinary background spanning oil & gas field operations, technology
+  consulting, and applied AI—providing a practical understanding of how real-world data is
+  generated, processed, and operationalized at scale.
 
 core_expertise:
   - AI Systems Design & Production Deployment
-  - Data-Centric AI (Synthetic Data, Error-Driven Datasets)
-  - Multimodal AI (OCR, Vision-Language)
+  - Multimodal AI (Document, OCR, Vision-Language)
   - Model Adaptation (LoRA, RAG, Hybrid Architectures)
-  - Kubernetes-based AI Inference Systems
-  - Observability & Drift Detection
-  - Cost-Aware AI Deployment
+  - Observability, Drift Detection & Model Lifecycle Management
   - Cloud-Native AI Platforms (AWS, Terraform)
 
 experience:
@@ -37,63 +36,99 @@ experience:
     location: Nuremberg
     startDate: July 2024
     endDate: Present
-    logo: yougov.png
-    summary: AI Systems & Multimodal Intelligence
+    summary: Applied AI Systems & Multimodal Intelligence
     highlights:
-      - Led development of a Receipt Intelligence Platform delivering a multimodal pipeline combining OCR, vision-language models, and LLMs to extract structured FMCG data across diverse international receipt formats.
-      - Designed data-centric evaluation workflows, including synthetic dataset generation and error-driven retraining loops to improve robustness against real-world noise and layout variability.
-      - Architected scalable serverless inference pipelines using AWS Bedrock, Lambda, SQS, MongoDB, and Terraform to enable automated processing with minimal operational overhead.
-      - Implemented ML observability frameworks leveraging ELK to monitor model behavior, latency, and failure patterns across production deployments.
-      - Contributed to internal MLOps strategy integrating SageMaker Pipelines and GitLab CI/CD for controlled model release and lifecycle management.
+      - Owned design-to-deployment lifecycle of production AI receipt-processing workflows.
+      - Led development of a Receipt Intelligence Platform combining OCR, vision-language models, and LLMs to extract structured FMCG data across diverse international receipt formats.
+      - Designed data-centric evaluation pipelines including synthetic dataset generation and error-driven feedback loops to improve robustness against noisy real-world inputs.
+      - Architected scalable inference systems using AWS Bedrock, Lambda, SQS, MongoDB, and Terraform for automated, high-volume retail data ingestion.
+      - Implemented observability frameworks to track model behavior, latency, and operational regressions.
+      - Supported controlled model lifecycle management using SageMaker Pipelines and GitLab CI/CD.
 
   - company: Machine Learning Reply GmbH
     position: Machine Learning Consultant
     location: Munich
     startDate: April 2022
     endDate: May 2024
-    logo: reply.png
     highlights:
       - Delivered applied AI and data platform solutions for enterprise clients including Allianz, Volkswagen, and Porsche.
-      - Built containerized RAG-based knowledge systems on Azure using OpenAI embeddings and FastAPI, enabling privacy-preserving legal document analysis workflows.
-      - Designed and operated Kubernetes-based data and ML platforms using Argo Workflows, Prometheus, and Grafana, reducing incident detection time by ~50%.
-      - Migrated ~1 PB of legacy data infrastructure from Cloudera to AWS, redesigning pipelines using Spark on EMR and modern CI/CD deployment patterns.
-      - Developed secure data ingestion pipelines integrating on-prem APIs with Azure Synapse for enterprise analytics use cases.
+      - Built containerized RAG-based systems on Azure enabling privacy-preserving document intelligence workflows.
+      - Established repeatable deployment patterns for ML and data workloads on Kubernetes with integrated observability.
+      - Migrated ~1 PB of legacy infrastructure from Cloudera to AWS, redesigning pipelines using Spark on EMR with modern CI/CD practices.
+      - Designed secure ingestion pipelines integrating on-prem APIs with Azure Synapse.
+
 
   - company: Fraunhofer IKS
     position: Data Scientist (Research Engineer)
     location: Munich
     startDate: May 2021
     endDate: March 2022
-    logo: fraunhofer.png
     highlights:
-      - Researched hybrid anomaly detection systems combining deep learning and rule-based reasoning for safety-critical environments.
-      - Applied contrastive learning (MoCo) to improve model robustness under sparse anomaly scenarios.
+      - Researched hybrid anomaly detection systems combining deep learning and rule-based reasoning for safety-critical use cases.
+      - Applied contrastive learning (MoCo) to improve robustness in sparse anomaly detection scenarios.
       - Collaborated with domain experts to transition research prototypes into production-viable system designs.
+
+  - company: SLB (Oil & Gas Engineering & Consulting)
+    position: Field Engineer
+    location: Land and Offshore
+    startDate: Dec 2015
+    endDate: Apr 2018
+    highlights:
+      - Led end-to-end well intervention operations (matrix acidizing, nitrogen lift, fishing) on land and offshore rigs for major clients including Total, Shell, and ExxonMobil, applying strong engineering knowledge and best-in-class QHSE practices.
+      - Installed field instrumentation and performed real-time data analysis to guide dynamic operational decisions—building foundational expertise in handling noisy, real-world data streams.
+      - Managed client relations, logistics, financials, and change controls, ensuring seamless execution, cost-effectiveness, and high customer satisfaction across all job phases.
+      - Prepared technical sales pitches, end-of-job reports, and presentations, translating operational data into insights that supported business development and continuous improvement.
+
+  - category: AI & Machine Learning
+    keywords:
+      - Python
+      - PyTorch
+      - Hugging Face Ecosystem
+      - LoRA / PEFT
+      - Retrieval-Augmented Generation
+      - Multimodal Processing
+
+  - category: AI Systems & Infrastructure
+    keywords:
+      - Kubernetes
+      - Docker
+      - Terraform
+      - GitLab CI/CD
+      - Model Serving Architectures
+
+  - category: Cloud Platforms
+    keywords:
+      - AWS (Bedrock, SageMaker, Lambda, SQS, EMR)
+      - Azure (Synapse, OpenAI)
+
+  - category: Observability & Operations
+    keywords:
+      - Prometheus
+      - Grafana
+      - ELK Stack
+      - Production Monitoring
+      - Drift Detection
+
+  - category: Data Engineering
+    keywords:
+      - PySpark
+      - SQL
+      - Data Pipeline Architecture
+
+  - category: Systems Languages
+    keywords:
+      - Rust (systems-level experimentation)
+      - Go (Kubernetes ecosystem literacy)
 
 education:
   - institution: Universität Hildesheim
     area: M.Sc. Data Analytics
     date: 2021
     grade: Grade 1.6
-    logo: hildesheim.png
+
   - institution: University of Ibadan
     area: B.Sc. Electrical & Electronic Engineering
     grade: First Class Honours
-    logo: ibadan.png
-
-skills:
-  - category: AI & Machine Learning
-    keywords: Python, PyTorch, Hugging Face, LoRA / PEFT, RAG Architectures, Multimodal AI
-  - category: AI Systems & Infrastructure
-    keywords: Kubernetes, Docker, Terraform, GitLab CI/CD, Model Serving Architectures
-  - category: Cloud Platforms
-    keywords: AWS (Bedrock, SageMaker, Lambda, SQS, EMR), Azure (Synapse, OpenAI)
-  - category: Observability & Operations
-    keywords: Prometheus, Grafana, ELK Stack, Production Monitoring & Drift Detection
-  - category: Data Engineering
-    keywords: PySpark, SQL, Data Pipeline Architecture
-  - category: Systems Languages
-    keywords: Rust, Go (Working Knowledge)
 
 certifications:
   - AWS Machine Learning Specialty
@@ -105,20 +140,11 @@ volunteers:
   - organization: ReDI School of Digital Integration
     position: Data Analytics Instructor
     period: 2023–2025
-    logo: redi.png
+
   - organization: AWS Community Builder
     position: AWS Community Builder
     period: 2021–2025
-    logo: aws.png
+
   - organization: DeepLearning.AI
     position: NLP Tutor
     period: 2021
-    logo: deeplearning.png
-
-professional_focus:
-  intro: "Designing AI systems that:"
-  details:
-    - Solve practical business problems through structured problem formulation
-    - Leverage curated, high-signal datasets rather than brute-force model scaling
-    - Adapt foundation models efficiently using LoRA, retrieval, and hybrid strategies
-    - Operate reliably in production with observability, cost control, and lifecycle governance
