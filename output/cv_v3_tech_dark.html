@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temiloluwa Adeoti - CV (Tech)</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-bg: #0a0a0a;
+            --dark-surface: #151515;
+            --cyan: #00fff9;
+            --purple: #a855f7;
+            --text-primary: #e5e5e5;
+            --text-secondary: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: var(--dark-bg);
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                width: 210mm;
+                height: 297mm;
+            }
+            
+            .page {
+                page-break-after: always;
+                height: 297mm;
+                width: 210mm;
+            }
+
+            .page:last-child {
+                page-break-after: auto;
+            }
+        }
+
+        .page {
+            padding: 45px 50px;
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: var(--dark-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 0%, var(--cyan) 50%, transparent 100%) top/100% 1px no-repeat,
+                radial-gradient(circle at top right, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at bottom left, rgba(0, 255, 249, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(0, 255, 249, 0.03) 19px, rgba(0, 255, 249, 0.03) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(0, 255, 249, 0.03) 19px, rgba(0, 255, 249, 0.03) 20px);
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            border-left: 4px solid var(--cyan);
+            padding-left: 20px;
+            margin-bottom: 35px;
+        }
+
+        .name {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+        }
+
+        .title::before {
+            content: '> ';
+            color: var(--purple);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            margin-top: 25px;
+            padding: 15px;
+            background: var(--dark-surface);
+            border: 1px solid rgba(0, 255, 249, 0.2);
+            border-radius: 4px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .contact-label {
+            color: var(--cyan);
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+
+        .contact-value {
+            color: var(--text-secondary);
+        }
+
+        .contact-value a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-value a:hover {
+            color: var(--cyan);
+        }
+
+        .section-heading {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 32px 0 18px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .section-heading::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan);
+        }
+
+        .introduction {
+            font-size: 12px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: var(--dark-surface);
+            border-left: 3px solid var(--purple);
+            font-weight: 300;
+        }
+
+        .job {
+            margin-bottom: 25px;
+            padding: 18px;
+            background: rgba(21, 21, 21, 0.5);
+            border: 1px solid rgba(0, 255, 249, 0.1);
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .job::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--cyan), transparent);
+        }
+
+        .job-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 255, 249, 0.3);
+            border-radius: 2px;
+        }
+
+        .job-info {
+            flex: 1;
+        }
+
+        .job-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .job-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--cyan);
+        }
+
+        .job-description ul {
+            margin-left: 18px;
+            font-size: 11px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .job-description li {
+            margin-bottom: 8px;
+        }
+
+        .education-item {
+            margin-bottom: 18px;
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: var(--dark-surface);
+            border-radius: 4px;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .edu-logo {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+        }
+
+        .degree {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .edu-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--purple);
+        }
+
+        .skills-section {
+            margin-bottom: 25px;
+        }
+
+        .skill-category {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--cyan);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .skill-list {
+            font-size: 11px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .volunteer-item {
+            margin-bottom: 18px;
+            display: flex;
+            gap: 15px;
+            padding: 12px;
+            background: rgba(21, 21, 21, 0.5);
+            border-radius: 4px;
+        }
+
+        .org-logo {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 255, 249, 0.2);
+        }
+
+        .volunteer-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+
+        .volunteer-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        .cert-list, .lang-list {
+            margin-left: 20px;
+            font-size: 11px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .cert-list li, .lang-list li {
+            margin-bottom: 6px;
+        }
+
+        .tech-footer {
+            position: absolute;
+            bottom: 30px;
+            right: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: var(--cyan);
+            opacity: 0.5;
+        }
+
+body.variant-tech.fit-2 .page { padding: 36px 40px !important; }
+body.variant-tech.fit-2 .name { font-size: 40px !important; }
+body.variant-tech.fit-2 .title { font-size: 12px !important; }
+body.variant-tech.fit-2 .section-heading { font-size: 20px !important; margin: 20px 0 10px 0 !important; }
+body.variant-tech.fit-2 .contact-grid { margin-top: 18px !important; padding: 10px !important; }
+body.variant-tech.fit-2 .job { margin-bottom: 12px !important; padding: 12px !important; }
+body.variant-tech.fit-2 .job-description ul { font-size: 9.8px !important; line-height: 1.35 !important; }
+body.variant-tech.fit-2 .job-description li { margin-bottom: 4px !important; }
+body.variant-tech.fit-2 .education-item, body.variant-tech.fit-2 .volunteer-item { margin-bottom: 9px !important; padding: 8px !important; }
+
+    </style>
+</head>
+<body class="variant-tech fit-2">
+    <div class="page">
+        <div class="grid-pattern"></div>
+        <div class="content">
+            <div class="header">
+                <h1 class="name">Temiloluwa Adeoti</h1>
+                <h2 class="title">Senior Applied AI Engineer | AI Systems Architect</h2>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-item"><span class="contact-label">Location</span><span class="contact-value">Munich, Germany</span></div>
+                <div class="contact-item"><span class="contact-label">Phone</span><span class="contact-value">+49 159 0683 7701</span></div>
+                <div class="contact-item"><span class="contact-label">Email</span><span class="contact-value">temilolu74@gmail.com</span></div>
+<div class="contact-item"><span class="contact-label">Portfolio</span><span class="contact-value"><a href="https://temiloluwa.github.io">temiloluwa.github.io</a></span></div><div class="contact-item"><span class="contact-label">LinkedIn</span><span class="contact-value"><a href="https://linkedin.com/in/temiadeoti">temiadeoti</a></span></div><div class="contact-item"><span class="contact-label">Github</span><span class="contact-value"><a href="https://github.com/Temiloluwa">Temiloluwa</a></span></div>            </div>
+
+            <h3 class="section-heading">Profile</h3>
+            <p class="introduction">Applied AI Engineer specializing in the design, deployment, and operation of data-centric, production AI systems. Combines strong foundations in machine learning with deep experience in cloud infrastructure, Kubernetes, and observability to deliver reliable, cost-aware AI solutions that operate at scale. Experienced across the full AI lifecycle—from problem formulation and dataset design to model adaptation and long-running inference systems.</p>
+
+            <h3 class="section-heading">Experience</h3>
+            <div class="job">
+                <div class="job-header">
+<img class="company-logo" src="file:///Users/david/codes-and-scripts/playground/resume-creator/data/logos/yougov.png" alt="YouGov (formerly GfK) logo" />                    <div class="job-info">
+                        <div class="job-title">Machine Learning Engineer | YouGov (formerly GfK)</div>
+                        <div class="job-period">JULY 2024 - PRESENT</div>
+                    </div>
+                </div>
+                <div class="job-description"><ul><li>Led development of a Receipt Intelligence Platform delivering a multimodal pipeline combining OCR, vision-language models, and LLMs to extract structured FMCG data across diverse international receipt formats.</li><li>Designed data-centric evaluation workflows, including synthetic dataset generation and error-driven retraining loops to improve robustness against real-world noise and layout variability.</li><li>Architected scalable serverless inference pipelines using AWS Bedrock, Lambda, SQS, MongoDB, and Terraform to enable automated processing with minimal operational overhead.</li><li>Implemented ML observability frameworks leveraging ELK to monitor model behavior, latency, and failure patterns across production deployments.</li><li>Contributed to internal MLOps strategy integrating SageMaker Pipelines and GitLab CI/CD for controlled model release and lifecycle management.</li></ul></div>
+            </div>
+            <div class="job">
+                <div class="job-header">
+<img class="company-logo" src="file:///Users/david/codes-and-scripts/playground/resume-creator/data/logos/reply.png" alt="Machine Learning Reply GmbH logo" />                    <div class="job-info">
+                        <div class="job-title">Machine Learning Consultant | Machine Learning Reply GmbH</div>
+                        <div class="job-period">APRIL 2022 - MAY 2024</div>
+                    </div>
+                </div>
+                <div class="job-description"><ul><li>Delivered applied AI and data platform solutions for enterprise clients including Allianz, Volkswagen, and Porsche.</li><li>Built containerized RAG-based knowledge systems on Azure using OpenAI embeddings and FastAPI, enabling privacy-preserving legal document analysis workflows.</li><li>Designed and operated Kubernetes-based data and ML platforms using Argo Workflows, Prometheus, and Grafana, reducing incident detection time by ~50%.</li><li>Migrated ~1 PB of legacy data infrastructure from Cloudera to AWS, redesigning pipelines using Spark on EMR and modern CI/CD deployment patterns.</li><li>Developed secure data ingestion pipelines integrating on-prem APIs with Azure Synapse for enterprise analytics use cases.</li></ul></div>
+            </div>
+            <div class="job">
+                <div class="job-header">
+<img class="company-logo" src="file:///Users/david/codes-and-scripts/playground/resume-creator/data/logos/fraunhofer.png" alt="Fraunhofer IKS logo" />                    <div class="job-info">
+                        <div class="job-title">Data Scientist (Research Engineer) | Fraunhofer IKS</div>
+                        <div class="job-period">MAY 2021 - MARCH 2022</div>
+                    </div>
+                </div>
+                <div class="job-description"><ul><li>Researched hybrid anomaly detection systems combining deep learning and rule-based reasoning for safety-critical environments.</li><li>Applied contrastive learning (MoCo) to improve model robustness under sparse anomaly scenarios.</li><li>Collaborated with domain experts to transition research prototypes into production-viable system designs.</li></ul></div>
+            </div>
+
+        </div>
+        <div class="tech-footer">PAGE_01</div>
+    </div>
+
+    <div class="page">
+        <div class="grid-pattern"></div>
+        <div class="content">
+
+            <h3 class="section-heading">Education</h3>
+            <div class="education-item">
+<img class="edu-logo" src="file:///Users/david/codes-and-scripts/playground/resume-creator/data/logos/hildesheim.png" alt="Universität Hildesheim logo" />                <div>
+                    <div class="degree">M.Sc. Data Analytics | Universität Hildesheim</div>
+                    <div class="edu-period">2021 | GRADE 1.6</div>
+                </div>
+            </div>
+            <div class="education-item">
+<img class="edu-logo" src="file:///Users/david/codes-and-scripts/playground/resume-creator/data/logos/ibadan.png" alt="University of Ibadan logo" />                <div>
+                    <div class="degree">B.Sc. Electrical & Electronic Engineering | University of Ibadan</div>
+                    <div class="edu-period"> | FIRST CLASS HONOURS</div>
+                </div>
+            </div>
+
+            <h3 class="section-heading">Technical Stack</h3>
+            <div class="skills-section">
+                <div class="skill-category">AI & Machine Learning</div>
+                <div class="skill-list">Python, PyTorch, Hugging Face, LoRA / PEFT, RAG Architectures, Multimodal AI</div>
+                <div class="skill-category">AI Systems & Infrastructure</div>
+                <div class="skill-list">Kubernetes, Docker, Terraform, GitLab CI/CD, Model Serving Architectures</div>
+                <div class="skill-category">Cloud Platforms</div>
+                <div class="skill-list">AWS (Bedrock, SageMaker, Lambda, SQS, EMR), Azure (Synapse, OpenAI)</div>
+                <div class="skill-category">Observability & Operations</div>
+                <div class="skill-list">Prometheus, Grafana, ELK Stack, Production Monitoring & Drift Detection</div>
+                <div class="skill-category">Data Engineering</div>
+                <div class="skill-list">PySpark, SQL, Data Pipeline Architecture</div>
+                <div class="skill-category">Systems Languages</div>
+                <div class="skill-list">Rust, Go (Working Knowledge)</div>
+            </div>
+
+            <h3 class="section-heading">Community</h3>
+            <div class="volunteer-item">
+<img class="org-logo" src="file:///Users/david/codes-and-scripts/playground/resume-creator/data/logos/redi.png" alt="ReDI School of Digital Integration logo" />                <div>
+                    <div class="volunteer-title">Data Analytics Instructor | ReDI School of Digital Integration</div>
+                    <div class="volunteer-period">2023–2025</div>
+                </div>
+            </div>
+            <div class="volunteer-item">
+<img class="org-logo" src="file:///Users/david/codes-and-scripts/playground/resume-creator/data/logos/aws.png" alt="AWS Community Builder logo" />                <div>
+                    <div class="volunteer-title">AWS Community Builder | AWS Community Builder</div>
+                    <div class="volunteer-period">2021–2025</div>
+                </div>
+            </div>
+            <div class="volunteer-item">
+<img class="org-logo" src="file:///Users/david/codes-and-scripts/playground/resume-creator/data/logos/deeplearning.png" alt="DeepLearning.AI logo" />                <div>
+                    <div class="volunteer-title">NLP Tutor | DeepLearning.AI</div>
+                    <div class="volunteer-period">2021</div>
+                </div>
+            </div>
+
+            <h3 class="section-heading">Certifications</h3>
+            <ol class="cert-list"><li>AWS Machine Learning Specialty</li><li>AWS Solutions Architect Associate</li><li>Terraform Associate</li><li>Azure Fundamentals</li></ol>
+
+        </div>
+        <div class="tech-footer">PAGE_02</div>
+    </div>
+</body>
+</html>

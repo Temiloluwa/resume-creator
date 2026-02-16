@@ -1,12 +1,12 @@
 [project]
 name = "resume-creator"
 version = "0.1.0"
-description = "Add your description here"
+description = "Generate CV HTML/PDF outputs from YAML and style source files"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "jinja2>=3.1.6",
     "playwright>=1.58.0",
     "pypdf>=6.7.0",
-    "reportlab>=4.4.10",
-    "weasyprint>=68.1",
+    "pyyaml>=6.0.3",
 ]

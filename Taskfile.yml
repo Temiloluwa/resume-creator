@@ -1,0 +1,22 @@
+version: '3'
+
+tasks:
+  install:
+    desc: Install Python dependencies and Chromium for PDF rendering
+    cmds:
+      - uv sync
+      - uv run playwright install chromium
+
+  clean:
+    desc: Remove generated HTML and PDF files
+    cmds:
+      - rm -f output/*.html output/*.pdf
+
+  build:
+    desc: Build all CV styles (HTML + PDF) with validation
+    cmds:
+      - uv run src/build_cv.py --max-pages 2
+
+  default:
+    cmds:
+      - task: build

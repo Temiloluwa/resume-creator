@@ -37,6 +37,7 @@ experience:
     location: Nuremberg
     startDate: July 2024
     endDate: Present
+    logo: yougov.png
     summary: AI Systems & Multimodal Intelligence
     highlights:
       - Led development of a Receipt Intelligence Platform delivering a multimodal pipeline combining OCR, vision-language models, and LLMs to extract structured FMCG data across diverse international receipt formats.
@@ -50,6 +51,7 @@ experience:
     location: Munich
     startDate: April 2022
     endDate: May 2024
+    logo: reply.png
     highlights:
       - Delivered applied AI and data platform solutions for enterprise clients including Allianz, Volkswagen, and Porsche.
       - Built containerized RAG-based knowledge systems on Azure using OpenAI embeddings and FastAPI, enabling privacy-preserving legal document analysis workflows.
@@ -62,6 +64,7 @@ experience:
     location: Munich
     startDate: May 2021
     endDate: March 2022
+    logo: fraunhofer.png
     highlights:
       - Researched hybrid anomaly detection systems combining deep learning and rule-based reasoning for safety-critical environments.
       - Applied contrastive learning (MoCo) to improve model robustness under sparse anomaly scenarios.
@@ -72,9 +75,11 @@ education:
     area: M.Sc. Data Analytics
     date: 2021
     grade: Grade 1.6
+    logo: hildesheim.png
   - institution: University of Ibadan
     area: B.Sc. Electrical & Electronic Engineering
     grade: First Class Honours
+    logo: ibadan.png
 
 skills:
   - category: AI & Machine Learning
@@ -100,12 +105,15 @@ volunteers:
   - organization: ReDI School of Digital Integration
     position: Data Analytics Instructor
     period: 2023–2025
+    logo: redi.png
   - organization: AWS Community Builder
     position: AWS Community Builder
     period: 2021–2025
+    logo: aws.png
   - organization: DeepLearning.AI
     position: NLP Tutor
     period: 2021
+    logo: deeplearning.png
 
 professional_focus:
   intro: "Designing AI systems that:"

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ cv.basics.name }} - CV (Tech)</title>
+    <style>
+{{ style_css | safe }}
+    </style>
+</head>
+<body class="variant-{{ variant_key }} {{ fit_class }}">
+    <div class="page">
+        <div class="grid-pattern"></div>
+        <div class="content">
+            <div class="header">
+                <h1 class="name">{{ cv.basics.name }}</h1>
+                <h2 class="title">{{ cv.basics.label }}</h2>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-item"><span class="contact-label">Location</span><span class="contact-value">{{ cv.basics.location }}</span></div>
+                <div class="contact-item"><span class="contact-label">Phone</span><span class="contact-value">{{ cv.basics.phone }}</span></div>
+                <div class="contact-item"><span class="contact-label">Email</span><span class="contact-value">{{ cv.basics.email }}</span></div>
+                {% if cv.profiles.website.url %}<div class="contact-item"><span class="contact-label">Portfolio</span><span class="contact-value"><a href="{{ cv.profiles.website.url }}">{{ cv.profiles.website.username }}</a></span></div>{% endif %}
+                {% if cv.profiles.linkedin.url %}<div class="contact-item"><span class="contact-label">LinkedIn</span><span class="contact-value"><a href="{{ cv.profiles.linkedin.url }}">{{ cv.profiles.linkedin.username }}</a></span></div>{% endif %}
+                {% if cv.profiles.github.url %}<div class="contact-item"><span class="contact-label">Github</span><span class="contact-value"><a href="{{ cv.profiles.github.url }}">{{ cv.profiles.github.username }}</a></span></div>{% endif %}
+            </div>
+
+            {% if cv.introduction %}
+            <h3 class="section-heading">Profile</h3>
+            <p class="introduction">{{ cv.introduction }}</p>
+            {% endif %}
+
+            {% if page1.experience %}
+            <h3 class="section-heading">Experience</h3>
+            {% for job in page1.experience %}
+            <div class="job">
+                <div class="job-header">
+                    {% if job.logo_uri %}<img class="company-logo" src="{{ job.logo_uri }}" alt="{{ job.company }} logo" />{% endif %}
+                    <div class="job-info">
+                        <div class="job-title">{{ job.position }} | {{ job.company }}</div>
+                        <div class="job-period">{{ job.startDate | upper }} - {{ job.endDate | upper }}</div>
+                    </div>
+                </div>
+                {% if job.highlights %}
+                <div class="job-description"><ul>{% for point in job.highlights %}<li>{{ point }}</li>{% endfor %}</ul></div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            {% if page1.education %}
+            <h3 class="section-heading">Education</h3>
+            {% for edu in page1.education %}
+            <div class="education-item">
+                {% if edu.logo_uri %}<img class="edu-logo" src="{{ edu.logo_uri }}" alt="{{ edu.institution }} logo" />{% endif %}
+                <div>
+                    <div class="degree">{{ edu.area }} | {{ edu.institution }}</div>
+                    <div class="edu-period">{{ edu.date | upper }}{% if edu.grade %} | {{ edu.grade | upper }}{% endif %}</div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="tech-footer">PAGE_01</div>
+    </div>
+
+    <div class="page">
+        <div class="grid-pattern"></div>
+        <div class="content">
+            {% if page2.experience %}
+            <h3 class="section-heading" style="margin-top: 0;">Experience</h3>
+            {% for job in page2.experience %}
+            <div class="job">
+                <div class="job-header">
+                    {% if job.logo_uri %}<img class="company-logo" src="{{ job.logo_uri }}" alt="{{ job.company }} logo" />{% endif %}
+                    <div class="job-info">
+                        <div class="job-title">{{ job.position }} | {{ job.company }}</div>
+                        <div class="job-period">{{ job.startDate | upper }} - {{ job.endDate | upper }}</div>
+                    </div>
+                </div>
+                {% if job.highlights %}
+                <div class="job-description"><ul>{% for point in job.highlights %}<li>{{ point }}</li>{% endfor %}</ul></div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            {% if page2.education %}
+            <h3 class="section-heading">Education</h3>
+            {% for edu in page2.education %}
+            <div class="education-item">
+                {% if edu.logo_uri %}<img class="edu-logo" src="{{ edu.logo_uri }}" alt="{{ edu.institution }} logo" />{% endif %}
+                <div>
+                    <div class="degree">{{ edu.area }} | {{ edu.institution }}</div>
+                    <div class="edu-period">{{ edu.date | upper }}{% if edu.grade %} | {{ edu.grade | upper }}{% endif %}</div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            {% if page2.skills %}
+            <h3 class="section-heading">Technical Stack</h3>
+            <div class="skills-section">
+                {% for skill in page2.skills %}
+                <div class="skill-category">{{ skill.category }}</div>
+                <div class="skill-list">{{ skill.keywords }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if page2.volunteers %}
+            <h3 class="section-heading">Community</h3>
+            {% for role in page2.volunteers %}
+            <div class="volunteer-item">
+                {% if role.logo_uri %}<img class="org-logo" src="{{ role.logo_uri }}" alt="{{ role.organization }} logo" />{% endif %}
+                <div>
+                    <div class="volunteer-title">{{ role.position }} | {{ role.organization }}</div>
+                    <div class="volunteer-period">{{ role.period | upper }}</div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            {% if page2.certifications %}
+            <h3 class="section-heading">Certifications</h3>
+            <ol class="cert-list">{% for cert in page2.certifications %}<li>{{ cert }}</li>{% endfor %}</ol>
+            {% endif %}
+
+            {% if page2.languages %}
+            <h3 class="section-heading">Languages</h3>
+            <ol class="lang-list">{% for lang in page2.languages %}<li>{{ lang | safe }}</li>{% endfor %}</ol>
+            {% endif %}
+        </div>
+        <div class="tech-footer">PAGE_02</div>
+    </div>
+</body>
+</html>

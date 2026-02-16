@@ -1,41 +1,46 @@
 # Resume Creator
 
-A Python-based tool to generate a professional PDF CV from HTML using Playwright.
+Generate three CV variants from a single YAML source file.
 
-## Project Structure
+## Source of truth
 
--   `src/`: Source code.
-    -   `index.html`: The CV content and styling. Edit this file to update your CV.
-    -   `generate_pdf.py`: Python script to convert the HTML to PDF.
--   `data/`: Input data and reference files.
-    -   `cv-info.txt`: Original text content.
-    -   `AdeotiMachineDataScienceFullCV.pdf`: Reference PDF.
--   `output/`: Generated artifacts.
-    -   `Temiloluwa_Adeoti_CV.pdf`: The final generated CV.
+- Content YAML: `/Users/david/codes-and-scripts/playground/resume-creator/cv-content.yaml`
+- Style HTML sources:
+  - `/Users/david/codes-and-scripts/playground/resume-creator/_backup/cv-styles/cv_v1_modern_teal.html`
+  - `/Users/david/codes-and-scripts/playground/resume-creator/_backup/cv-styles/cv_v2_editorial.html`
+  - `/Users/david/codes-and-scripts/playground/resume-creator/_backup/cv-styles/cv_v3_tech_dark.html`
+- Logos: `/Users/david/codes-and-scripts/playground/resume-creator/data/logos` (PNG with transparency)
 
-## Setup
+## Output
 
-1.  **Install Dependencies**:
-    This project uses `uv` for dependency management.
-    ```bash
-    uv sync
-    ```
+Generated into `/Users/david/codes-and-scripts/playground/resume-creator/output`:
 
-2.  **Install Playwright Browsers**:
-    ```bash
-    uv run playwright install chromium
-    ```
+- `cv_v1_modern_teal.html`
+- `cv_v2_editorial.html`
+- `cv_v3_tech_dark.html`
+- `Temiloluwa_Adeoti_CV_v1_modern_teal.pdf`
+- `Temiloluwa_Adeoti_CV_v2_editorial.pdf`
+- `Temiloluwa_Adeoti_CV_v3_tech_dark.pdf`
 
-## Usage
-
-To generate the PDF CV:
+## Build
 
 ```bash
-uv run src/generate_pdf.py
+task install
 ```
 
-The output file will be saved to `output/Temiloluwa_Adeoti_CV.pdf`.
+```bash
+task build
+```
 
-## Customization
+Optional:
 
-To update your CV content or change the styling, simply edit `src/index.html`. You can open this file in your browser to preview changes before generating the PDF.
+```bash
+task clean
+```
+
+## Guarantees enforced by build
+
+- A4 page format for every PDF
+- Maximum 2 pages per PDF (`--max-pages 2`)
+- Automatic overflow-aware print scaling to prevent cropped content
+- Build fails if any PDF exceeds page limit
