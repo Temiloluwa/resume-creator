@@ -81,6 +81,19 @@ class CVData:
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "CVData":
         root = _resolve_root(data)
+        raw_experience_entries = _as_list_of_dicts(
+            _pick(
+                root,
+                "experience",
+                "work_experience",
+                "professional_experience",
+                "employment",
+                "positions",
+            )
+        )
+        experience_entries, skill_entries_from_experience = _split_experience_and_skills(
+            raw_experience_entries
+        )
 
         basics_raw = _as_dict(_pick(root, "basics", "contact", "personal"))
         basics = Basics(
@@ -127,16 +140,7 @@ class CVData:
                         )
                     ),
                 )
-                for item in _as_list_of_dicts(
-                    _pick(
-                        root,
-                        "experience",
-                        "work_experience",
-                        "professional_experience",
-                        "employment",
-                        "positions",
-                    )
-                )
+                for item in experience_entries
             ],
             selected_projects=[
                 ProjectItem(
@@ -147,7 +151,10 @@ class CVData:
                     _pick(root, "selected_projects", "projects", "key_projects")
                 )
             ],
-            skills=_parse_skills(_pick(root, "skills", "skill_groups", "competencies")),
+            skills=_merge_skills(
+                _parse_skills(_pick(root, "skills", "skill_groups", "competencies")),
+                _parse_skills(skill_entries_from_experience),
+            ),
             education=[
                 EducationItem(
                     institution=_as_text(
@@ -323,3 +330,59 @@ def _parse_skills(value: Any) -> list[SkillCategory]:
         ]
 
     return []
+
+
+def _split_experience_and_skills(
+    entries: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    experience_entries: list[dict[str, Any]] = []
+    skill_entries: list[dict[str, Any]] = []
+
+    for item in entries:
+        if _looks_like_skill_entry(item):
+            skill_entries.append(item)
+        else:
+            experience_entries.append(item)
+
+    return experience_entries, skill_entries
+
+
+def _looks_like_skill_entry(item: dict[str, Any]) -> bool:
+    has_skill_shape = bool(_pick(item, "category", "group", "name")) and bool(
+        _pick(item, "keywords", "skills", "items", "tools", "values")
+    )
+    has_experience_shape = bool(
+        _pick(
+            item,
+            "company",
+            "organization",
+            "employer",
+            "position",
+            "role",
+            "title",
+            "startDate",
+            "start_date",
+            "endDate",
+            "end_date",
+        )
+    )
+    return has_skill_shape and not has_experience_shape
+
+
+def _merge_skills(
+    primary: list[SkillCategory], fallback: list[SkillCategory]
+) -> list[SkillCategory]:
+    if not primary and not fallback:
+        return []
+
+    merged: list[SkillCategory] = []
+    seen: set[str] = set()
+    for item in primary + fallback:
+        key = item.category.strip().lower()
+        if not key:
+            continue
+        if key in seen:
+            continue
+        seen.add(key)
+        merged.append(item)
+    return merged

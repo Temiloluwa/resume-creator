@@ -10,17 +10,18 @@
       --gap-scale: {{ '%.6f'|format(fit.section_gap_scale) }};
       --line-height: {{ '%.6f'|format(fit.line_height) }};
       --teal: #14b8a6;
-      --ink: #142025;
-      --muted: #4e5b62;
-      --panel: #f2f9f8;
-      --body-size: calc(9.7pt * var(--fit-scale));
-      --meta-size: calc(8.4pt * var(--fit-scale));
-      --h1-size: calc(28pt * var(--fit-scale));
-      --h2-size: calc(10.8pt * var(--fit-scale));
-      --section-size: calc(11.2pt * var(--fit-scale));
-      --item-gap: calc(4.8pt * var(--fit-scale) * var(--gap-scale));
-      --section-gap: calc(8.6pt * var(--fit-scale) * var(--gap-scale));
-      --list-indent: calc(13pt * var(--fit-scale));
+      --ink: #1a1a1a;
+      --muted: #5b5b5b;
+      --surface: #f7fbfb;
+      --body-size: calc(9.2pt * var(--fit-scale));
+      --meta-size: calc(8.2pt * var(--fit-scale));
+      --h1-size: calc(24pt * var(--fit-scale));
+      --h2-size: calc(10.6pt * var(--fit-scale));
+      --section-size: calc(10.8pt * var(--fit-scale));
+      --item-gap: calc(4pt * var(--fit-scale) * var(--gap-scale));
+      --section-gap: calc(6.8pt * var(--fit-scale) * var(--gap-scale));
+      --list-indent: calc(12pt * var(--fit-scale));
+      --logo-size: calc(22pt * var(--fit-scale));
     }
 
     @page {
@@ -49,23 +50,24 @@
     }
 
     .header {
-      display: flex;
-      flex-direction: column;
-      gap: calc(3.4pt * var(--fit-scale));
-      margin-bottom: calc(var(--section-gap) * 0.52);
-      align-items: stretch;
+      margin-bottom: calc(var(--section-gap) * 0.75);
     }
 
-    .identity {
-      text-align: center;
-      margin-bottom: calc(0.8pt * var(--fit-scale));
+    .header-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) auto;
+      gap: calc(4.2pt * var(--fit-scale));
+      align-items: start;
+      border-bottom: calc(1pt * var(--fit-scale)) solid #e8eeee;
+      padding-bottom: calc(6pt * var(--fit-scale));
     }
 
     .name {
       margin: 0;
       font-size: var(--h1-size);
-      line-height: 1.07;
+      line-height: 1.06;
       color: var(--ink);
+      font-weight: 700;
     }
 
     .label {
@@ -75,47 +77,44 @@
       font-weight: 600;
     }
 
-    .contact-grid {
-      list-style: none;
-      margin: 0;
-      padding: calc(4.2pt * var(--fit-scale));
-      background: linear-gradient(180deg, rgba(20, 184, 166, 0.08), rgba(20, 184, 166, 0.03));
-      border: calc(1pt * var(--fit-scale)) solid rgba(20, 184, 166, 0.3);
-      border-radius: calc(3pt * var(--fit-scale));
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: calc(2.2pt * var(--fit-scale)) calc(3.2pt * var(--fit-scale));
-      font-size: calc(var(--meta-size) * 0.95);
+    .intro-compact {
+      margin-top: calc(2.2pt * var(--fit-scale));
+      color: var(--ink);
+      font-size: calc(var(--meta-size) * 1.05);
+      line-height: calc(var(--line-height) * 0.98);
+      max-width: 100%;
     }
 
-    .contact-item {
+    .header-right {
+      text-align: right;
+      min-width: calc(156pt * var(--fit-scale));
+    }
+
+    .contact-info {
       display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: calc(1.6pt * var(--fit-scale));
-      min-width: 0;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: calc(1.8pt * var(--fit-scale));
+      margin-top: 0;
+      font-size: var(--meta-size);
     }
 
-    .contact-label {
-      display: inline;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .03em;
-      color: #11766c;
-      margin-bottom: 0;
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: calc(3pt * var(--fit-scale));
+      color: var(--ink);
+      max-width: calc(230pt * var(--fit-scale));
+      text-align: right;
       white-space: nowrap;
     }
 
-    .contact-label::after {
-      content: ":";
+    .contact-icon {
+      min-width: calc(10pt * var(--fit-scale));
     }
 
-    .contact-value {
-      display: inline;
-      color: var(--ink);
-    }
-
-    .contact-grid a {
+    .contact-row a {
       color: inherit;
       text-decoration: none;
     }
@@ -126,13 +125,14 @@
     }
 
     .section-title {
-      margin: 0 0 calc(5pt * var(--fit-scale));
+      margin: 0 0 calc(4pt * var(--fit-scale));
       font-size: var(--section-size);
       color: var(--teal);
       border-bottom: calc(1pt * var(--fit-scale)) solid var(--teal);
-      padding-bottom: calc(2pt * var(--fit-scale));
+      padding-bottom: calc(1.6pt * var(--fit-scale));
       letter-spacing: .02em;
       text-transform: uppercase;
+      font-weight: 700;
     }
 
     p {
@@ -148,65 +148,100 @@
       margin-bottom: var(--item-gap);
     }
 
-    .chip-list {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: calc(4pt * var(--fit-scale));
+    .core-expertise ul {
+      column-count: 2;
+      column-gap: calc(14pt * var(--fit-scale));
     }
 
-    .chip {
-      border: calc(1pt * var(--fit-scale)) solid rgba(20, 184, 166, 0.55);
-      border-radius: calc(3pt * var(--fit-scale));
-      padding: calc(2pt * var(--fit-scale)) calc(4.4pt * var(--fit-scale));
-      background: rgba(20, 184, 166, 0.07);
-      font-size: var(--meta-size);
-    }
-
-    .experience-item,
+    .job,
     .education-item,
     .project-item,
-    .volunteer-item,
-    .skill-item {
-      margin-bottom: calc(6.2pt * var(--fit-scale) * var(--gap-scale));
+    .volunteer-item {
+      margin-bottom: calc(5pt * var(--fit-scale) * var(--gap-scale));
     }
 
-    .entry-head {
+    .job-header,
+    .education-header,
+    .volunteer-header {
       display: flex;
-      justify-content: space-between;
-      gap: calc(7pt * var(--fit-scale));
-      margin-bottom: calc(2.4pt * var(--fit-scale));
-      align-items: baseline;
+      align-items: flex-start;
+      gap: calc(6pt * var(--fit-scale));
+      margin-bottom: calc(2pt * var(--fit-scale));
     }
 
+    .logo-badge {
+      width: var(--logo-size);
+      height: var(--logo-size);
+      object-fit: contain;
+      border: calc(1pt * var(--fit-scale)) solid #d3e6e3;
+      border-radius: calc(2pt * var(--fit-scale));
+      background: transparent;
+      flex-shrink: 0;
+    }
+
+    .job-details,
+    .education-details,
+    .volunteer-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .job-title,
     .entry-title {
       font-weight: 700;
       color: var(--ink);
+      font-size: calc(var(--body-size) * 1.02);
     }
 
+    .job-company,
+    .entry-subtitle {
+      font-size: var(--meta-size);
+      color: #374045;
+      font-weight: 600;
+    }
+
+    .job-period,
     .entry-meta {
       font-size: var(--meta-size);
       color: var(--muted);
-      text-align: right;
       white-space: nowrap;
+      text-align: right;
+      margin-left: calc(5pt * var(--fit-scale));
     }
 
-    .entry-subtitle {
-      margin: 0 0 calc(3pt * var(--fit-scale));
+    .job-summary {
+      font-size: var(--meta-size);
       color: var(--muted);
+      font-style: italic;
+      margin-bottom: calc(2pt * var(--fit-scale));
+    }
+
+    .job-description ul {
+      padding-left: calc(11pt * var(--fit-scale));
+    }
+
+    .skills-section {
+      display: grid;
+      gap: calc(3.5pt * var(--fit-scale));
+    }
+
+    .skill-row {
+      margin: 0;
+    }
+
+    .skill-category {
+      font-weight: 700;
+      color: var(--ink);
       font-size: var(--meta-size);
     }
 
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: calc(8pt * var(--fit-scale));
+    .skill-list {
+      color: #353a3f;
+      font-size: var(--meta-size);
     }
 
     .focus-list {
-      margin-top: calc(4pt * var(--fit-scale));
+      margin-top: calc(3pt * var(--fit-scale));
     }
 
     @media print {
@@ -219,33 +254,42 @@
 <body>
   <main>
     <header class="header">
-      <div class="identity">
-        <h1 class="name">{{ cv.basics.name }}</h1>
-        <p class="label">{{ cv.basics.label }}</p>
+      <div class="header-grid">
+        <div>
+          <h1 class="name">{{ cv.basics.name }}</h1>
+          <p class="label">{{ cv.basics.label }}</p>
+          {% if cv.introduction %}
+          <p class="intro-compact">{{ cv.introduction }}</p>
+          {% endif %}
+        </div>
+        <div class="header-right">
+          <div class="contact-info">
+            {% if cv.basics.location %}
+            <div class="contact-row"><span>{{ cv.basics.location }}</span><span class="contact-icon">📍</span></div>
+            {% endif %}
+            {% if cv.basics.email %}
+            <div class="contact-row"><span><a href="mailto:{{ cv.basics.email }}">{{ cv.basics.email }}</a></span><span class="contact-icon">📧</span></div>
+            {% endif %}
+            {% if cv.basics.phone %}
+            <div class="contact-row"><span>{{ cv.basics.phone }}</span><span class="contact-icon">📞</span></div>
+            {% endif %}
+            {% for profile in cv.basics.profiles %}
+            <div class="contact-row">
+              <span>{% if profile.url %}<a href="{{ profile.url }}">{{ profile.username or profile.url }}</a>{% else %}{{ profile.username }}{% endif %}</span>
+              <span class="contact-icon">{% set n = (profile.network or '')|lower %}{% if 'linkedin' in n %}🔗{% elif 'github' in n %}💻{% elif 'website' in n %}🌐{% else %}🔹{% endif %}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
       </div>
-      <ul class="contact-grid">
-        {% if cv.basics.location %}<li class="contact-item"><span class="contact-label">Location</span><span class="contact-value">{{ cv.basics.location }}</span></li>{% endif %}
-        {% if cv.basics.phone %}<li class="contact-item"><span class="contact-label">Phone</span><span class="contact-value">{{ cv.basics.phone }}</span></li>{% endif %}
-        {% if cv.basics.email %}<li class="contact-item"><span class="contact-label">Email</span><span class="contact-value">{{ cv.basics.email }}</span></li>{% endif %}
-        {% for profile in cv.basics.profiles %}
-        <li class="contact-item"><span class="contact-label">{{ profile.network }}</span><span class="contact-value">{% if profile.url %}<a href="{{ profile.url }}">{{ profile.username or profile.url }}</a>{% else %}{{ profile.username }}{% endif %}</span></li>
-        {% endfor %}
-      </ul>
     </header>
 
-    {% if cv.introduction %}
-    <section>
-      <h2 class="section-title">Profile</h2>
-      <p>{{ cv.introduction }}</p>
-    </section>
-    {% endif %}
-
     {% if cv.core_expertise %}
-    <section>
+    <section class="core-expertise">
       <h2 class="section-title">Core Expertise</h2>
-      <ul class="chip-list">
+      <ul>
         {% for item in cv.core_expertise %}
-        <li class="chip">{{ item }}</li>
+        <li>{{ item }}</li>
         {% endfor %}
       </ul>
     </section>
@@ -255,21 +299,24 @@
     <section>
       <h2 class="section-title">Professional Experience</h2>
       {% for item in cv.experience %}
-      <article class="experience-item">
-        <div class="entry-head">
-          <div class="entry-title">{{ item.position }}{% if item.company %} · {{ item.company }}{% endif %}</div>
-          <div class="entry-meta">
-            {% if item.startDate or item.endDate %}{{ item.startDate }}{% if item.endDate %} - {{ item.endDate }}{% endif %}{% endif %}
-            {% if item.location %}<br>{{ item.location }}{% endif %}
+      <article class="job">
+        <div class="job-header">
+          <img class="logo-badge" src="{{ logo_for(item.company or item.position) }}" alt="{{ item.company or item.position }} logo">
+          <div class="job-details">
+            <div class="job-title">{{ item.position }}</div>
+            <div class="job-company">{{ item.company }}{% if item.location %}, {{ item.location }}{% endif %}</div>
           </div>
+          <div class="job-period">{% if item.startDate or item.endDate %}{{ item.startDate }}{% if item.endDate %} - {{ item.endDate }}{% endif %}{% endif %}</div>
         </div>
-        {% if item.summary %}<p class="entry-subtitle">{{ item.summary }}</p>{% endif %}
+        {% if item.summary %}<p class="job-summary">{{ item.summary }}</p>{% endif %}
         {% if item.highlights %}
-        <ul>
-          {% for highlight in item.highlights %}
-          <li>{{ highlight }}</li>
-          {% endfor %}
-        </ul>
+        <div class="job-description">
+          <ul>
+            {% for highlight in item.highlights %}
+            <li>{{ highlight }}</li>
+            {% endfor %}
+          </ul>
+        </div>
         {% endif %}
       </article>
       {% endfor %}
@@ -290,13 +337,10 @@
 
     {% if cv.skills %}
     <section>
-      <h2 class="section-title">Skills</h2>
-      <div class="skills-grid">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-section">
         {% for skill in cv.skills %}
-        <article class="skill-item">
-          <div class="entry-title">{{ skill.category }}</div>
-          <p>{{ skill.keywords | join(', ') }}</p>
-        </article>
+        <p class="skill-row"><span class="skill-category">{{ skill.category }}:</span> <span class="skill-list">{{ skill.keywords | join(', ') }}</span></p>
         {% endfor %}
       </div>
     </section>
@@ -307,11 +351,14 @@
       <h2 class="section-title">Education</h2>
       {% for item in cv.education %}
       <article class="education-item">
-        <div class="entry-head">
-          <div class="entry-title">{{ item.area }}{% if item.institution %} · {{ item.institution }}{% endif %}</div>
-          <div class="entry-meta">{{ item.date }}</div>
+        <div class="education-header">
+          <img class="logo-badge" src="{{ logo_for(item.institution or item.area) }}" alt="{{ item.institution or item.area }} logo">
+          <div class="education-details">
+            <div class="entry-title">{{ item.area }}</div>
+            {% if item.institution %}<div class="entry-subtitle">{{ item.institution }}</div>{% endif %}
+          </div>
+          <div class="entry-meta">{% if item.date %}{{ item.date }}{% endif %}{% if item.grade %}<br>{{ item.grade }}{% endif %}</div>
         </div>
-        {% if item.grade %}<p class="entry-subtitle">{{ item.grade }}</p>{% endif %}
       </article>
       {% endfor %}
     </section>
@@ -330,11 +377,15 @@
 
     {% if cv.volunteers %}
     <section>
-      <h2 class="section-title">Volunteer Experience</h2>
+      <h2 class="section-title">Teaching & Community</h2>
       {% for item in cv.volunteers %}
       <article class="volunteer-item">
-        <div class="entry-head">
-          <div class="entry-title">{{ item.position }}{% if item.organization %} · {{ item.organization }}{% endif %}</div>
+        <div class="volunteer-header">
+          <img class="logo-badge" src="{{ logo_for(item.organization or item.position) }}" alt="{{ item.organization or item.position }} logo">
+          <div class="volunteer-details">
+            <div class="entry-title">{{ item.position }}</div>
+            {% if item.organization %}<div class="entry-subtitle">{{ item.organization }}</div>{% endif %}
+          </div>
           <div class="entry-meta">{{ item.period }}</div>
         </div>
       </article>

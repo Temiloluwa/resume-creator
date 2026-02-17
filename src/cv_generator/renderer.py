@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import re
+import unicodedata
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -36,13 +38,28 @@ def render_all_html(
     output_dir.mkdir(parents=True, exist_ok=True)
     env = build_template_environment(template_dir)
     context = cv_data.to_context()
+    root_path = Path(base_url).resolve() if base_url else Path.cwd()
+    logos_dir = root_path / "logos"
+
+    def logo_for(name: str | None) -> str:
+        slug = _slugify(name or "")
+        if slug:
+            candidate = logos_dir / f"{slug}.png"
+            if candidate.exists():
+                return candidate.as_posix()
+        return (logos_dir / "placeholder.png").as_posix()
 
     rendered: list[RenderedHTML] = []
     for style in STYLES:
         template = env.get_template(style.template_name)
 
         def render_for_fit(params: FitParams) -> str:
-            return template.render(cv=context, fit=params, style=style)
+            return template.render(
+                cv=context,
+                fit=params,
+                style=style,
+                logo_for=logo_for,
+            )
 
         fit_result = fit_to_two_pages(render_for_fit, base_url=base_url)
         html_path = output_dir / style.html_filename
@@ -58,3 +75,11 @@ def render_all_html(
         )
 
     return rendered
+
+
+def _slugify(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value)
+    ascii_text = normalized.encode("ascii", "ignore").decode("ascii")
+    lowered = ascii_text.lower()
+    cleaned = re.sub(r"[^a-z0-9]+", "-", lowered).strip("-")
+    return cleaned
