@@ -9,9 +9,7 @@ wheels/
 # Virtual environments
 .venv
 
-# Generated CV artifacts
-output/html/
-output/pdf/
-
 # Test/tool caches
 .pytest_cache/
+
+.DS_Store
