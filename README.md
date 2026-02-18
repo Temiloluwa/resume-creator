@@ -1,41 +1,65 @@
 # Resume Creator
 
-A Python-based tool to generate a professional PDF CV from HTML using Playwright.
+A Python-based, two-page CV generator that transforms YAML content into professionally styled HTML and PDF documents.
 
-## Project Structure
+## 🚀 Overview
 
--   `src/`: Source code.
-    -   `index.html`: The CV content and styling. Edit this file to update your CV.
-    -   `generate_pdf.py`: Python script to convert the HTML to PDF.
--   `data/`: Input data and reference files.
-    -   `cv-info.txt`: Original text content.
-    -   `AdeotiMachineDataScienceFullCV.pdf`: Reference PDF.
--   `output/`: Generated artifacts.
-    -   `Temiloluwa_Adeoti_CV.pdf`: The final generated CV.
+This project provides a robust workflow for maintaining CV content in a structured YAML format and generating multiple styled variants. It handles complex layout challenges, such as fitting content precisely within two pages across various visual designs.
 
-## Setup
+## ✨ Key Features
 
-1.  **Install Dependencies**:
-    This project uses `uv` for dependency management.
-    ```bash
-    uv sync
-    ```
+- **YAML-Driven Content**: Maintain your professional history in a single, version-controlled `cv-content.yaml`.
+- **Multiple Style Variants**:
+  - **Modern Teal**: A clean, contemporary design with sidebars.
+  - **Editorial Burgundy**: A classic, structured layout.
+  - **Tech Dark**: A high-contrast, modern aesthetic.
+- **Auto-Fitting & Pagination**: Advanced logic to ensure the CV fits exactly on two pages by dynamically adjusting scale and spacing.
+- **Logo Integration**: Automated institution logo sourcing and embedding.
+- **Automated Workflow**: Simple commands via `Taskfile` for generation and cleanup.
 
-2.  **Install Playwright Browsers**:
-    ```bash
-    uv run playwright install chromium
-    ```
+## 🛠️ Technology Stack
 
-## Usage
+- **Python 3.13+**
+- **uv**: Next-generation Python package installer and resolver.
+- **Jinja2**: For HTML templating.
+- **WeasyPrint**: For high-fidelity HTML to PDF conversion.
+- **PyYAML**: For content management.
+- **Task**: Task runner for automation.
 
-To generate the PDF CV:
+## 📥 Getting Started
 
-```bash
-uv run src/generate_pdf.py
-```
+### Prerequisites
 
-The output file will be saved to `output/Temiloluwa_Adeoti_CV.pdf`.
+- [uv](https://github.com/astral-sh/uv) installed.
+- [Task](https://taskfile.dev/) installed.
 
-## Customization
+### Setup
 
-To update your CV content or change the styling, simply edit `src/index.html`. You can open this file in your browser to preview changes before generating the PDF.
+1. Clone the repository.
+2. Run the setup task:
+   ```bash
+   task setup
+   ```
+
+## 📋 Usage
+
+Common commands available via the `Taskfile`:
+
+| Command | Description |
+| :--- | :--- |
+| `task build` | Generate all HTML and PDF CV variants. |
+| `task html` | Generate only HTML variants. |
+| `task pdf` | Convert existing HTML to PDF. |
+| `task clean` | Remove all generated artifacts in `output/`. |
+| `task rebuild` | Full clean and rebuild. |
+
+## 📂 Project Structure
+
+- `cv-content.yaml`: The source of truth for all CV data.
+- `cv-styles/`: HTML/CSS templates for each design variant.
+- `logos/`: Institution logo assets.
+- `output/`: Generated HTML and PDF files.
+- `src/`: Python source code for the `cv-gen` CLI.
+- `Taskfile.yml`: Automation task definitions.
+
+---
