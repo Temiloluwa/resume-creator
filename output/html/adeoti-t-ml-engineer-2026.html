@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temiloluwa Adeoti — Senior Machine Learning Engineer</title>
+<style>
+  :root {
+    --fit-scale: 1.0000;
+    --page-width: 210mm;
+    --page-height: 297mm;
+    --page-padding-top: calc(10mm * var(--fit-scale));
+    --page-padding-x: calc(12mm * var(--fit-scale));
+    --page-padding-bottom: calc(12mm * var(--fit-scale));
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: calc(10.35pt * var(--fit-scale));
+    color: #222;
+    background: #fff;
+    line-height: calc(1.42 * var(--fit-scale));
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: var(--page-width);
+    min-height: var(--page-height);
+    padding: var(--page-padding-top) var(--page-padding-x) var(--page-padding-bottom);
+    background: #fff;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .page:last-of-type {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .header {
+    border-bottom: calc(1.1mm * var(--fit-scale)) solid #00897B;
+    padding-bottom: calc(4.3mm * var(--fit-scale));
+    margin-bottom: calc(5mm * var(--fit-scale));
+  }
+
+  .header h1 {
+    font-size: calc(25.0pt * var(--fit-scale));
+    font-weight: 700;
+    color: #00695C;
+    letter-spacing: -0.5px;
+  }
+
+  .header .label {
+    font-size: calc(12.35pt * var(--fit-scale));
+    color: #00897B;
+    font-weight: 500;
+    margin-top: calc(0.5mm * var(--fit-scale));
+    margin-bottom: calc(2.7mm * var(--fit-scale));
+  }
+
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(1.6mm * var(--fit-scale)) calc(5.5mm * var(--fit-scale));
+    font-size: calc(8.9pt * var(--fit-scale));
+    color: #444;
+    margin-top: calc(1.9mm * var(--fit-scale));
+  }
+
+  .contact-row a { color: #00695C; text-decoration: none; }
+  .contact-row span::before { content: ""; }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: calc(1.1mm * var(--fit-scale));
+    white-space: nowrap;
+  }
+
+  .contact-item .icon { color: #00897B; font-weight: bold; }
+  .contact-item a { white-space: nowrap; }
+
+  section { margin-bottom: calc(4.7mm * var(--fit-scale)); }
+
+  .section-title {
+    font-size: calc(9.75pt * var(--fit-scale));
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    color: #00695C;
+    border-bottom: calc(0.45mm * var(--fit-scale)) solid #B2DFDB;
+    padding-bottom: calc(0.8mm * var(--fit-scale));
+    margin-bottom: calc(2.2mm * var(--fit-scale));
+  }
+
+  .summary p { color: #333; font-size: calc(9.75pt * var(--fit-scale)); line-height: calc(1.31 * var(--fit-scale)); }
+
+  .achievements ul,
+  .exp-item ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .achievements ul li,
+  .exp-item ul li {
+    padding-left: calc(3.8mm * var(--fit-scale));
+    position: relative;
+    color: #333;
+  }
+
+  .achievements ul li {
+    margin-bottom: calc(0.9mm * var(--fit-scale));
+    font-size: calc(9.4pt * var(--fit-scale));
+    line-height: calc(1.23 * var(--fit-scale));
+  }
+
+  .achievements ul li::before,
+  .exp-item ul li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #00897B;
+  }
+
+  .achievements ul li::before {
+    font-size: calc(8.5pt * var(--fit-scale));
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(1.8mm * var(--fit-scale)) calc(5mm * var(--fit-scale));
+  }
+
+  .skill-category .cat-name {
+    font-size: calc(8.75pt * var(--fit-scale));
+    font-weight: 700;
+    color: #00695C;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: calc(0.3mm * var(--fit-scale));
+  }
+
+  .skill-category .tags {
+    font-size: calc(8.75pt * var(--fit-scale));
+    color: #444;
+    line-height: calc(1.45 * var(--fit-scale));
+  }
+
+  .exp-item { margin-bottom: calc(3.3mm * var(--fit-scale)); }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: calc(1mm * var(--fit-scale));
+  }
+
+  .exp-header .company {
+    font-weight: 700;
+    font-size: calc(10.65pt * var(--fit-scale));
+    color: #222;
+  }
+
+  .exp-header .dates {
+    font-size: calc(8.45pt * var(--fit-scale));
+    color: #888;
+    white-space: nowrap;
+  }
+
+  .exp-position {
+    font-size: calc(9.55pt * var(--fit-scale));
+    color: #00897B;
+    font-weight: 600;
+    margin-bottom: calc(0.15mm * var(--fit-scale));
+  }
+
+  .exp-location {
+    font-size: calc(8.45pt * var(--fit-scale));
+    color: #999;
+    margin-bottom: calc(1.15mm * var(--fit-scale));
+  }
+
+  .exp-item ul li {
+    margin-bottom: calc(0.65mm * var(--fit-scale));
+    font-size: calc(9.0pt * var(--fit-scale));
+    line-height: calc(1.2 * var(--fit-scale));
+  }
+
+  .exp-item ul li::before {
+    font-size: calc(8.1pt * var(--fit-scale));
+    top: 0;
+  }
+
+  .edu-item { margin-bottom: calc(2.2mm * var(--fit-scale)); }
+
+  .edu-item .degree {
+    font-weight: 700;
+    font-size: calc(10.0pt * var(--fit-scale));
+  }
+
+  .edu-item .institution {
+    color: #00897B;
+    font-size: calc(9.35pt * var(--fit-scale));
+  }
+
+  .edu-item .edu-meta {
+    font-size: calc(8.4pt * var(--fit-scale));
+    color: #888;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 calc(6mm * var(--fit-scale));
+  }
+
+  .certs-list, .lang-list {
+    list-style: none;
+    padding: 0;
+    font-size: calc(8.95pt * var(--fit-scale));
+    color: #333;
+  }
+
+  .certs-list li, .lang-list li {
+    padding-left: calc(3mm * var(--fit-scale));
+    position: relative;
+    margin-bottom: calc(0.55mm * var(--fit-scale));
+  }
+
+  .certs-list li::before, .lang-list li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: #00897B;
+    font-weight: bold;
+  }
+
+  .lang-list .level {
+    color: #888;
+    font-size: calc(8.15pt * var(--fit-scale));
+  }
+
+  .vol-item {
+    display: flex;
+    justify-content: space-between;
+    gap: calc(2.5mm * var(--fit-scale));
+    font-size: calc(8.9pt * var(--fit-scale));
+    margin-bottom: calc(0.75mm * var(--fit-scale));
+  }
+
+  .vol-item .org { font-weight: 600; }
+  .vol-item .vol-period { color: #888; font-size: calc(8.45pt * var(--fit-scale)); white-space: nowrap; }
+
+  .soft-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <h1>Temiloluwa Adeoti</h1>
+    <div class="label">Senior Machine Learning Engineer</div>
+    <div class="contact-row">
+      <span class="contact-item"><span class="icon">✉</span> <a href="mailto:temilolu74@gmail.com">temilolu74@gmail.com</a></span>
+      <span class="contact-item"><span class="icon">☎</span> +49 159 0683 7701</span>
+      <span class="contact-item"><span class="icon">⌖</span> Co. Louth, Ireland</span>
+      <span class="contact-item"><span class="icon">✔</span> EU Citizen — No sponsorship required</span>
+    </div>
+    <div class="contact-row">
+      
+      <span class="contact-item"><a href="https://linkedin.com/in/temiadeoti">linkedin.com/in/temiadeoti</a></span>
+      
+      <span class="contact-item"><a href="https://github.com/Temiloluwa">github.com/Temiloluwa</a></span>
+      
+      <span class="contact-item"><a href="https://gitlab.com/users/Temiloluwa1/contributed">gitlab.com/users/Temiloluwa1/contributed</a></span>
+      
+      <span class="contact-item"><a href="https://temiloluwa.github.io">temiloluwa.github.io</a></span>
+      
+    </div>
+  </div>
+
+  <section class="summary soft-break">
+    <div class="section-title">Profile</div>
+      <p>Senior Machine Learning Engineer with 5+ years building production ML systems — from multimodal LLM pipelines and RAG architectures to cloud-native inference infrastructure on AWS and Azure. Delivered enterprise AI solutions generating €500k+ revenue for Allianz, Volkswagen, and Porsche. Background spanning industrial field engineering, enterprise technology consulting, and applied machine learning, providing a practical understanding of noisy real-world data and operational system constraints.</p>
+  </section>
+
+  <section class="achievements soft-break">
+    <div class="section-title">Key Achievements</div>
+    <ul>
+      
+        <li>Architected multimodal AI systems converting receipt images into structured FMCG retail intelligence at international scale.</li>
+      
+        <li>Implemented model observability frameworks achieving <strong>50% reduction in mean time to detect and resolve</strong> critical production issues.</li>
+      
+        <li>Delivered enterprise AI and data platform solutions for Allianz, Volkswagen, and Porsche, generating <strong>€500k+ revenue</strong>.</li>
+      
+        <li>Migrated <strong>~1 PB</strong> of legacy infrastructure from Cloudera to AWS, rearchitecting pipelines using Spark on EMR with modern CI/CD.</li>
+      
+    </ul>
+  </section>
+
+  <section class="soft-break">
+    <div class="section-title">Core Skills &amp; Specialisation</div>
+    <div class="skills-grid">
+      
+      <div class="skill-category">
+        <div class="cat-name">AI &amp; Machine Learning</div>
+        <div class="tags">Python · PyTorch · TensorFlow · Hugging Face · LoRA/PEFT · RAG · Multimodal Processing · LangChain · LlamaIndex · HayStack · Model Evaluation Pipelines</div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="cat-name">Cloud Platforms</div>
+        <div class="tags">AWS (Bedrock, SageMaker, Lambda, SQS, EMR, API Gateway, Glue) · Azure (Synapse, Azure OpenAI)</div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="cat-name">MLOps &amp; Lifecycle</div>
+        <div class="tags">MLFlow · DVC · SageMaker Pipelines · Apache Airflow · GitLab CI/CD · Model Serving Architectures</div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="cat-name">Infrastructure &amp; Orchestration</div>
+        <div class="tags">Kubernetes (EKS, AKS) · Docker · Terraform · ArgoCD · Argo Workflows · FastAPI</div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="cat-name">Observability &amp; Operations</div>
+        <div class="tags">Prometheus · Grafana · ELK Stack · Drift Detection · AI System Observability</div>
+      </div>
+      
+      <div class="skill-category">
+        <div class="cat-name">Data Engineering &amp; Languages</div>
+        <div class="tags">PySpark · SQL · Data Pipeline Architecture · TypeScript · Go · Rust</div>
+      </div>
+      
+    </div>
+  </section>
+
+  
+  <section>
+    <div class="section-title">Work Experience</div>
+    
+    <div class="exp-item soft-break">
+      <div class="exp-header">
+        <span class="company">YouGov <span style="font-weight:400;color:#888;">(formerly GfK)</span></span>
+        <span class="dates">July 2024 – Present</span>
+      </div>
+      <div class="exp-position">Machine Learning Engineer</div>
+      <div class="exp-location">Nuremberg, Germany</div>
+      <ul>
+        
+        <li>Architected and deployed a production <strong>Receipt Intelligence Platform</strong> combining OCR, vision-language models, and LLM pipelines to extract structured FMCG retail data across international receipt formats.</li>
+        
+        <li>Built scalable inference infrastructure using AWS Bedrock, Lambda, SQS, MongoDB, and Terraform enabling automated high-volume retail data processing.</li>
+        
+        <li>Designed data-centric evaluation pipelines including synthetic dataset generation and error-driven feedback loops to improve model robustness against noisy real-world inputs.</li>
+        
+        <li>Implemented MLOps framework for continuous model training and deployment using GitLab CI/CD, SageMaker Pipelines, and AWS API Gateway.</li>
+        
+        <li>Developed model observability systems using ELK stack for comprehensive endpoint performance tracking, latency monitoring, and operational regression detection.</li>
+        
+      </ul>
+    </div>
+    
+  </section>
+  
+</div>
+
+<div class="page">
+  
+  <section>
+    <div class="section-title">Work Experience</div>
+    
+    <div class="exp-item soft-break">
+      <div class="exp-header">
+        <span class="company">Machine Learning Reply GmbH</span>
+        <span class="dates">April 2022 – May 2024</span>
+      </div>
+      <div class="exp-position">Machine Learning Consultant</div>
+      <div class="exp-location">Munich, Germany</div>
+      <ul>
+        
+        <li>Delivered applied AI solutions and data platforms for enterprise clients including <strong>Allianz, Volkswagen, and Porsche</strong> as part of a four-person team, contributing to €500k+ revenue growth.</li>
+        
+        <li>Built containerised, privacy-preserving <strong>RAG Question Answering API</strong> on Azure using OpenAI embeddings, GPT-3.5, and FastAPI to support legal knowledge workflows for lawyers.</li>
+        
+        <li>Migrated ~1 PB of data from Cloudera to AWS, rearchitecting Apache Pig and Hive jobs into Spark on EMR with GitLab and Apache Airflow CI/CD.</li>
+        
+        <li>Managed SaaS Kubernetes platform for an insurance client, orchestrating data pipelines with Argo Workflows and deployments via ArgoCD.</li>
+        
+        <li>Defined Prometheus metrics and built Grafana monitoring dashboards for a Kubernetes data platform, achieving <strong>50% reduction in MTTD</strong> for critical issues.</li>
+        
+        <li>Designed secure enterprise ingestion pipelines integrating on-prem APIs with Azure Synapse for client security visibility dashboards (PowerBI).</li>
+        
+      </ul>
+    </div>
+    
+    <div class="exp-item soft-break">
+      <div class="exp-header">
+        <span class="company">Fraunhofer IKS</span>
+        <span class="dates">May 2021 – March 2022</span>
+      </div>
+      <div class="exp-position">Data Scientist (Research Engineer)</div>
+      <div class="exp-location">Munich, Germany</div>
+      <ul>
+        
+        <li>Developed hybrid anomaly detection systems combining deep learning with rule-based reasoning for safety-critical industrial environments.</li>
+        
+        <li>Applied contrastive learning (MoCo) to improve robustness in sparse anomaly detection scenarios.</li>
+        
+        <li>Collaborated with domain experts to transition research prototypes into production-ready system designs.</li>
+        
+      </ul>
+    </div>
+    
+  </section>
+  
+
+  <section class="soft-break">
+    <div class="section-title">Education</div>
+    
+    <div class="edu-item">
+      <span class="degree">M.Sc. Data Analytics</span>
+      &nbsp;·&nbsp;
+      <span class="institution">Universität Hildesheim</span>
+        <div class="edu-meta">2019 – 2021 &nbsp;·&nbsp; Grade 1.6 <em>(German scale — equivalent to Irish 2:1 Honours, top 15%)</em></div>
+    </div>
+    
+    <div class="edu-item">
+      <span class="degree">B.Sc. Electrical &amp; Electronic Engineering</span>
+      &nbsp;·&nbsp;
+      <span class="institution">University of Ibadan</span>
+        <div class="edu-meta">2008 – 2013 &nbsp;·&nbsp; First Class Honours</div>
+    </div>
+    
+  </section>
+
+  <section class="soft-break">
+    <div class="section-title">Certifications &amp; Languages</div>
+    <div class="two-col">
+      <div>
+        <ul class="certs-list">
+          
+          <li>AWS Machine Learning Specialty</li>
+          
+          <li>AWS Solutions Architect Associate</li>
+          
+          <li>AWS Cloud Practitioner</li>
+          
+          <li>Terraform Associate</li>
+          
+          <li>Azure Fundamentals</li>
+          
+          <li>TELC Deutsch B2 &amp; B1</li>
+          
+        </ul>
+      </div>
+      <div>
+        <ul class="lang-list">
+          
+          <li>English <span class="level">— Fluent (C2)</span></li>
+          
+          <li>German <span class="level">— Advanced (B2)</span></li>
+          
+          <li>French <span class="level">— Basic (A2)</span></li>
+          
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="soft-break">
+    <div class="section-title">Volunteering &amp; Community</div>
+    
+    <div class="vol-item">
+      <span><span class="org">ReDI School of Digital Integration</span> — Data Analytics Instructor</span>
+      <span class="vol-period">Feb 2023 – Jan 2025</span>
+    </div>
+    
+    <div class="vol-item">
+      <span><span class="org">AWS Community Builder</span></span>
+      <span class="vol-period">Apr 2021 – Apr 2025</span>
+    </div>
+    
+    <div class="vol-item">
+      <span><span class="org">DeepLearning.AI</span> — NLP Tutor</span>
+      <span class="vol-period">Feb 2021 – May 2021</span>
+    </div>
+    
+  </section>
+</div>
+</body>
+</html>

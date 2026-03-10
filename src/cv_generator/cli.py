@@ -2,13 +2,11 @@ from __future__ import annotations
 
 import argparse
 import sys
-import re
-from datetime import datetime
 from pathlib import Path
 
-from .config import STYLES
+from .config import ROLE_VARIANTS
 from .loader import CVContentError, load_cv_content
-from .pdf import convert_all_html_to_pdf
+from .pdf import convert_html_directory_to_pdf
 from .renderer import render_all_html
 
 
@@ -20,9 +18,7 @@ def main(argv: list[str] | None = None) -> int:
     content_path = project_root / "cv-content.yaml"
     template_dir = project_root / "src" / "cv_generator" / "templates"
     cv_data = load_cv_content(content_path)
-    role_dir = _normalized_role(cv_data.basics.label or "cv")
-    date_dir = datetime.now().date().isoformat()
-    output_root = project_root / "output" / role_dir / date_dir
+    output_root = project_root / "output"
     html_dir = output_root / "html"
     pdf_dir = output_root / "pdf"
 
@@ -31,26 +27,26 @@ def main(argv: list[str] | None = None) -> int:
             rendered = _run_html(cv_data, template_dir, html_dir, project_root)
             for item in rendered:
                 print(
-                    f"HTML [{item.style.display_name}] -> {item.html_path} "
-                    f"(pages={item.page_count}, scale={item.fit_params.scale:.3f})"
+                    f"HTML [{item.variant.label}] -> {item.html_path} "
+                    f"(pages={item.page_count}, scale={item.fit_params.scale:.4f}, split={item.experience_split})"
                 )
             return 0
 
         if args.command == "pdf":
-            outputs = convert_all_html_to_pdf(html_dir, pdf_dir)
-            for pdf_path in outputs:
+            pdf_paths = convert_html_directory_to_pdf(html_dir, pdf_dir)
+            for pdf_path in pdf_paths:
                 print(f"PDF -> {pdf_path}")
             return 0
 
         if args.command == "all":
             rendered = _run_html(cv_data, template_dir, html_dir, project_root)
-            outputs = convert_all_html_to_pdf(html_dir, pdf_dir)
+            pdf_paths = convert_html_directory_to_pdf(html_dir, pdf_dir)
             for item in rendered:
                 print(
-                    f"HTML [{item.style.display_name}] -> {item.html_path} "
-                    f"(pages={item.page_count}, scale={item.fit_params.scale:.3f})"
+                    f"HTML [{item.variant.label}] -> {item.html_path} "
+                    f"(pages={item.page_count}, scale={item.fit_params.scale:.4f}, split={item.experience_split})"
                 )
-            for pdf_path in outputs:
+            for pdf_path in pdf_paths:
                 print(f"PDF -> {pdf_path}")
             return 0
 
@@ -73,12 +69,12 @@ def main(argv: list[str] | None = None) -> int:
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="cv-gen",
-        description="Generate two-page CV HTML and PDF files from cv-content.yaml.",
+        description="Generate role-specific CV HTML and PDF files from cv-content.yaml.",
     )
     subparsers = parser.add_subparsers(dest="command")
 
-    subparsers.add_parser("html", help="Render all CV styles to HTML with exact two-page fitting")
-    subparsers.add_parser("pdf", help="Convert rendered HTML files to PDF")
+    subparsers.add_parser("html", help="Render the CV to HTML")
+    subparsers.add_parser("pdf", help="Convert rendered HTML to PDF")
     subparsers.add_parser("all", help="Run HTML render and PDF conversion")
     subparsers.add_parser("clean", help="Delete generated HTML/PDF artifacts")
 
@@ -103,8 +99,21 @@ def _run_html(
 def _clean_outputs(html_dir: Path, pdf_dir: Path) -> list[Path]:
     removed: list[Path] = []
 
-    for style in STYLES:
-        for candidate in (html_dir / style.html_filename, pdf_dir / style.pdf_filename):
+    legacy_candidates = (
+        html_dir / "cv.html",
+        pdf_dir / "cv.pdf",
+    )
+
+    for candidate in legacy_candidates:
+        if candidate.exists():
+            candidate.unlink()
+            removed.append(candidate)
+
+    for variant in ROLE_VARIANTS:
+        for candidate in (
+            html_dir / variant.html_filename,
+            pdf_dir / variant.pdf_filename,
+        ):
             if candidate.exists():
                 candidate.unlink()
                 removed.append(candidate)
@@ -114,29 +123,6 @@ def _clean_outputs(html_dir: Path, pdf_dir: Path) -> list[Path]:
 
 def _project_root() -> Path:
     return Path(__file__).resolve().parents[2]
-
-
-def _normalized_role(label: str) -> str:
-    primary = re.split(r"[|/,-]", label)[0].strip().lower()
-    replacements = {
-        "machine learning": "ai",
-        "ml": "ai",
-        "applied ai": "ai",
-        "artificial intelligence": "ai",
-    }
-    for src, dst in replacements.items():
-        primary = primary.replace(src, dst)
-
-    primary = re.sub(
-        r"\b(senior|jr|junior|principal|staff|lead|head|sr)\b",
-        "",
-        primary,
-    )
-    slug = re.sub(r"[^a-z0-9]+", "-", primary).strip("-")
-    if not slug:
-        return "cv"
-    slug = re.sub(r"-{2,}", "-", slug)
-    return slug
 
 
 if __name__ == "__main__":

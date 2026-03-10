@@ -10,17 +10,17 @@ tasks:
       - uv sync --all-groups
 
   html:
-    desc: Generate all fitted two-page HTML CVs
+    desc: Generate the single-style HTML CV
     cmds:
       - uv run cv-gen html
 
   pdf:
-    desc: Convert generated HTML CVs to PDF
+    desc: Convert the generated HTML CV to PDF
     cmds:
       - uv run cv-gen pdf
 
   build:
-    desc: Generate HTML and PDF CVs
+    desc: Generate the single-style HTML and PDF CV
     cmds:
       - uv run cv-gen all
 

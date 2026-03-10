@@ -29,14 +29,7 @@ class ExperienceItem:
     location: str = ""
     startDate: str = ""
     endDate: str = ""
-    summary: str = ""
     highlights: list[str] = field(default_factory=list)
-
-
-@dataclass
-class ProjectItem:
-    name: str = ""
-    description: str = ""
 
 
 @dataclass
@@ -49,7 +42,8 @@ class SkillCategory:
 class EducationItem:
     institution: str = ""
     area: str = ""
-    date: str = ""
+    startDate: str = ""
+    endDate: str = ""
     grade: str = ""
 
 
@@ -61,9 +55,9 @@ class VolunteerItem:
 
 
 @dataclass
-class ProfessionalFocus:
-    intro: str = ""
-    details: list[str] = field(default_factory=list)
+class LanguageItem:
+    language: str = ""
+    fluency: str = ""
 
 
 @dataclass
@@ -71,15 +65,12 @@ class CVData:
     basics: Basics = field(default_factory=Basics)
     introduction: str = ""
     key_achievements: list[str] = field(default_factory=list)
-    technical_leadership: list[str] = field(default_factory=list)
-    core_expertise: list[str] = field(default_factory=list)
     experience: list[ExperienceItem] = field(default_factory=list)
-    selected_projects: list[ProjectItem] = field(default_factory=list)
     skills: list[SkillCategory] = field(default_factory=list)
     education: list[EducationItem] = field(default_factory=list)
     certifications: list[str] = field(default_factory=list)
+    languages: list[LanguageItem] = field(default_factory=list)
     volunteers: list[VolunteerItem] = field(default_factory=list)
-    professional_focus: ProfessionalFocus = field(default_factory=ProfessionalFocus)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "CVData":
@@ -117,18 +108,6 @@ class CVData:
             profiles=_parse_profiles(_pick(basics_raw, "profiles", "social", "links")),
         )
 
-        professional_focus_raw = _as_dict(
-            _pick(root, "professional_focus", "focus", "what_i_build")
-        )
-        technical_leadership = _as_list_of_text(
-            _pick(root, "technical_leadership", "leadership", "platform_focus")
-        )
-        core_expertise = _as_list_of_text(
-            _pick(root, "core_expertise", "expertise", "specializations", "strengths")
-        )
-        if not core_expertise:
-            core_expertise = technical_leadership
-
         return cls(
             basics=basics,
             introduction=_as_text(
@@ -137,8 +116,6 @@ class CVData:
             key_achievements=_as_list_of_text(
                 _pick(root, "key_achievements", "achievements", "impact_highlights")
             ),
-            technical_leadership=technical_leadership,
-            core_expertise=core_expertise,
             experience=[
                 ExperienceItem(
                     company=_as_text(
@@ -150,7 +127,6 @@ class CVData:
                         _pick(item, "startDate", "start_date", "start", "from")
                     ),
                     endDate=_as_text(_pick(item, "endDate", "end_date", "end", "to")),
-                    summary=_as_text(_pick(item, "summary", "overview", "description")),
                     highlights=_as_list_of_text(
                         _pick(
                             item,
@@ -164,15 +140,6 @@ class CVData:
                 )
                 for item in experience_entries
             ],
-            selected_projects=[
-                ProjectItem(
-                    name=_as_text(_pick(item, "name", "title", "project")),
-                    description=_as_text(_pick(item, "description", "summary", "details")),
-                )
-                for item in _as_list_of_dicts(
-                    _pick(root, "selected_projects", "projects", "key_projects")
-                )
-            ],
             skills=_merge_skills(
                 _parse_skills(_pick(root, "skills", "skill_groups", "competencies")),
                 _parse_skills(skill_entries_from_experience),
@@ -183,7 +150,12 @@ class CVData:
                         _pick(item, "institution", "school", "university", "organization")
                     ),
                     area=_as_text(_pick(item, "area", "degree", "program", "qualification")),
-                    date=_as_text(_pick(item, "date", "year", "period", "duration")),
+                    startDate=_as_text(
+                        _pick(item, "startDate", "start_date", "start", "from", "year")
+                    ),
+                    endDate=_as_text(
+                        _pick(item, "endDate", "end_date", "end", "to", "date", "period", "duration")
+                    ),
                     grade=_as_text(_pick(item, "grade", "result", "gpa")),
                 )
                 for item in _as_list_of_dicts(_pick(root, "education", "academics"))
@@ -191,6 +163,13 @@ class CVData:
             certifications=_as_list_of_text(
                 _pick(root, "certifications", "certs", "licenses")
             ),
+            languages=[
+                LanguageItem(
+                    language=_as_text(_pick(item, "language", "name")),
+                    fluency=_as_text(_pick(item, "fluency", "level", "proficiency")),
+                )
+                for item in _as_list_of_dicts(_pick(root, "languages", "language"))
+            ],
             volunteers=[
                 VolunteerItem(
                     organization=_as_text(
@@ -203,12 +182,6 @@ class CVData:
                     _pick(root, "volunteers", "volunteering", "community")
                 )
             ],
-            professional_focus=ProfessionalFocus(
-                intro=_as_text(_pick(professional_focus_raw, "intro", "summary")),
-                details=_as_list_of_text(
-                    _pick(professional_focus_raw, "details", "points", "bullets")
-                ),
-            ),
         )
 
     def to_context(self) -> dict[str, Any]:
