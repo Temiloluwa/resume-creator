@@ -18,6 +18,7 @@ class Basics:
     email: str = ""
     phone: str = ""
     location: str = ""
+    work_authorization: str = ""
     profiles: list[Profile] = field(default_factory=list)
 
 
@@ -69,6 +70,8 @@ class ProfessionalFocus:
 class CVData:
     basics: Basics = field(default_factory=Basics)
     introduction: str = ""
+    key_achievements: list[str] = field(default_factory=list)
+    technical_leadership: list[str] = field(default_factory=list)
     core_expertise: list[str] = field(default_factory=list)
     experience: list[ExperienceItem] = field(default_factory=list)
     selected_projects: list[ProjectItem] = field(default_factory=list)
@@ -102,21 +105,40 @@ class CVData:
             email=_as_text(_pick(basics_raw, "email", "mail")),
             phone=_as_text(_pick(basics_raw, "phone", "telephone", "mobile")),
             location=_normalize_location(_pick(basics_raw, "location", "address", "city")),
+            work_authorization=_as_text(
+                _pick(
+                    basics_raw,
+                    "work_authorization",
+                    "workAuthorization",
+                    "work_permit",
+                    "visa",
+                )
+            ),
             profiles=_parse_profiles(_pick(basics_raw, "profiles", "social", "links")),
         )
 
         professional_focus_raw = _as_dict(
             _pick(root, "professional_focus", "focus", "what_i_build")
         )
+        technical_leadership = _as_list_of_text(
+            _pick(root, "technical_leadership", "leadership", "platform_focus")
+        )
+        core_expertise = _as_list_of_text(
+            _pick(root, "core_expertise", "expertise", "specializations", "strengths")
+        )
+        if not core_expertise:
+            core_expertise = technical_leadership
 
         return cls(
             basics=basics,
             introduction=_as_text(
                 _pick(root, "introduction", "summary", "profile", "about")
             ),
-            core_expertise=_as_list_of_text(
-                _pick(root, "core_expertise", "expertise", "specializations", "strengths")
+            key_achievements=_as_list_of_text(
+                _pick(root, "key_achievements", "achievements", "impact_highlights")
             ),
+            technical_leadership=technical_leadership,
+            core_expertise=core_expertise,
             experience=[
                 ExperienceItem(
                     company=_as_text(

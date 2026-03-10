@@ -126,6 +126,15 @@
       white-space: nowrap;
     }
 
+    .contact-row.multiline {
+      align-items: flex-start;
+      white-space: normal;
+    }
+
+    .contact-row.multiline .contact-value {
+      white-space: pre-line;
+    }
+
     .contact-icon {
       min-width: calc(10pt * var(--fit-scale));
     }
@@ -286,13 +295,16 @@
         <div class="header-right">
           <div class="contact-info">
             {% if cv.basics.location %}
-            <div class="contact-row"><span>{{ cv.basics.location }}</span><span class="contact-icon">📍</span></div>
+            <div class="contact-row multiline"><span class="contact-value">{{ cv.basics.location }}</span><span class="contact-icon">📍</span></div>
             {% endif %}
             {% if cv.basics.email %}
             <div class="contact-row"><span><a href="mailto:{{ cv.basics.email }}">{{ cv.basics.email }}</a></span><span class="contact-icon">📧</span></div>
             {% endif %}
             {% if cv.basics.phone %}
             <div class="contact-row"><span>{{ cv.basics.phone }}</span><span class="contact-icon">📞</span></div>
+            {% endif %}
+            {% if cv.basics.work_authorization %}
+            <div class="contact-row"><span>{{ cv.basics.work_authorization }}</span><span class="contact-icon">🛂</span></div>
             {% endif %}
             {% for profile in cv.basics.profiles %}
             <div class="contact-row">
@@ -305,20 +317,31 @@
       </div>
     </header>
 
-    {% if cv.core_expertise %}
-    <section class="core-expertise">
-      <h2 class="section-title">Core Expertise</h2>
+    {% if cv.key_achievements %}
+    <section>
+      <h2 class="section-title">Key Achievements</h2>
       <ul>
-        {% for item in cv.core_expertise %}
+        {% for item in cv.key_achievements %}
         <li>{{ item }}</li>
         {% endfor %}
       </ul>
     </section>
     {% endif %}
 
+    {% if cv.skills %}
+    <section>
+      <h2 class="section-title">Technical Leadership and Architecture</h2>
+      <div class="skills-section">
+        {% for skill in cv.skills %}
+        <p class="skill-row"><span class="skill-category">{{ skill.category }}:</span> <span class="skill-list">{{ skill.keywords | join(', ') }}</span></p>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
     {% if cv.experience %}
     <section>
-      <h2 class="section-title">Professional Experience</h2>
+      <h2 class="section-title">Engineering Experience</h2>
       {% for item in cv.experience %}
       <article class="job">
         <div class="job-header">
@@ -353,17 +376,6 @@
         {% if project.description %}<p>{{ project.description }}</p>{% endif %}
       </article>
       {% endfor %}
-    </section>
-    {% endif %}
-
-    {% if cv.skills %}
-    <section>
-      <h2 class="section-title">Technical Skills</h2>
-      <div class="skills-section">
-        {% for skill in cv.skills %}
-        <p class="skill-row"><span class="skill-category">{{ skill.category }}:</span> <span class="skill-list">{{ skill.keywords | join(', ') }}</span></p>
-        {% endfor %}
-      </div>
     </section>
     {% endif %}
 

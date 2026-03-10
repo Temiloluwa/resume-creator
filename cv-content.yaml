@@ -1,9 +1,13 @@
 basics:
   name: Temiloluwa Adeoti
-  label: Senior Applied AI Engineer | AI Systems Architect
+  label: Senior Applied AI Engineer
   email: temilolu74@gmail.com
   phone: "+49 159 0683 7701"
-  location: Munich, Germany
+  location: |
+    49 Gleann Alainn Tullyallen
+    A92HK8X
+    Co. Louth, Ireland
+  work_authorization: EU Citizen — No sponsorship required
   profiles:
     - network: LinkedIn
       username: temiadeoti
@@ -11,74 +15,35 @@ basics:
     - network: GitHub
       username: Temiloluwa
       url: https://github.com/Temiloluwa
-    - network: Website
+    - network: GitLab
+      username: Temiloluwa1
+      url: https://gitlab.com/users/Temiloluwa1/contributed
+    - network: Blog
       username: temiloluwa.github.io
       url: https://temiloluwa.github.io
 
 introduction: >
-  Applied AI Engineer focused on designing, deploying, and operating long-running,
-  data-centric AI systems. Combines strong machine learning foundations with cloud-native
-  infrastructure and observability practices to deliver reliable, cost-aware AI solutions.
-  Brings an interdisciplinary background spanning oil & gas field operations, technology
-  consulting, and applied AI—providing a practical understanding of how real-world data is
-  generated, processed, and operationalized at scale.
+  Senior Applied AI Engineer specializing in the architecture and operation of
+  production AI systems. Designs data-centric machine learning platforms that
+  integrate multimodal models, scalable cloud infrastructure, and observability
+  frameworks to deliver reliable AI services in real-world environments.
 
-core_expertise:
-  - AI Systems Design & Production Deployment
-  - Multimodal AI (Document, OCR, Vision-Language)
-  - Model Adaptation (LoRA, RAG, Hybrid Architectures)
-  - Observability, Drift Detection & Model Lifecycle Management
-  - Cloud-Native AI Platforms (AWS, Terraform)
+  Experienced in building end-to-end AI systems—from data ingestion pipelines
+  and model adaptation to deployment, monitoring, and lifecycle management.
+  Combines deep machine learning expertise with cloud-native engineering
+  practices to operationalize AI safely and cost-effectively at scale.
 
-experience:
-  - company: YouGov (formerly GfK)
-    position: Machine Learning Engineer
-    location: Nuremberg
-    startDate: July 2024
-    endDate: Present
-    summary: Applied AI Systems & Multimodal Intelligence
-    highlights:
-      - Owned design-to-deployment lifecycle of production AI receipt-processing workflows.
-      - Led development of a Receipt Intelligence Platform combining OCR, vision-language models, and LLMs to extract structured FMCG data across diverse international receipt formats.
-      - Designed data-centric evaluation pipelines including synthetic dataset generation and error-driven feedback loops to improve robustness against noisy real-world inputs.
-      - Architected scalable inference systems using AWS Bedrock, Lambda, SQS, MongoDB, and Terraform for automated, high-volume retail data ingestion.
-      - Implemented observability frameworks to track model behavior, latency, and operational regressions.
-      - Supported controlled model lifecycle management using SageMaker Pipelines and GitLab CI/CD.
+  Background spanning industrial field engineering, enterprise technology
+  consulting, and applied AI engineering, providing a practical understanding
+  of noisy real-world data and operational system constraints.
 
-  - company: Machine Learning Reply GmbH
-    position: Machine Learning Consultant
-    location: Munich
-    startDate: April 2022
-    endDate: May 2024
-    highlights:
-      - Delivered applied AI and data platform solutions for enterprise clients including Allianz, Volkswagen, and Porsche.
-      - Built containerized RAG-based systems on Azure enabling privacy-preserving document intelligence workflows.
-      - Established repeatable deployment patterns for ML and data workloads on Kubernetes with integrated observability.
-      - Migrated ~1 PB of legacy infrastructure from Cloudera to AWS, redesigning pipelines using Spark on EMR with modern CI/CD practices.
-      - Designed secure ingestion pipelines integrating on-prem APIs with Azure Synapse.
+key_achievements:
+  - Architected multimodal AI systems converting receipt images into structured retail intelligence.
+  - Built cloud-native AI platforms on AWS supporting scalable inference and automated retail data ingestion.
+  - Implemented model observability and evaluation frameworks improving reliability in noisy real-world data environments.
+  - Delivered enterprise AI and data platform solutions for Allianz, Volkswagen, and Porsche.
 
-
-  - company: Fraunhofer IKS
-    position: Data Scientist (Research Engineer)
-    location: Munich
-    startDate: May 2021
-    endDate: March 2022
-    highlights:
-      - Researched hybrid anomaly detection systems combining deep learning and rule-based reasoning for safety-critical use cases.
-      - Applied contrastive learning (MoCo) to improve robustness in sparse anomaly detection scenarios.
-      - Collaborated with domain experts to transition research prototypes into production-viable system designs.
-
-  - company: SLB (Oil & Gas Engineering & Consulting)
-    position: Field Engineer
-    location: Land and Offshore
-    startDate: Dec 2015
-    endDate: Apr 2018
-    highlights:
-      - Led end-to-end well intervention operations (matrix acidizing, nitrogen lift, fishing) on land and offshore rigs for major clients including Total, Shell, and ExxonMobil, applying strong engineering knowledge and best-in-class QHSE practices.
-      - Installed field instrumentation and performed real-time data analysis to guide dynamic operational decisions—building foundational expertise in handling noisy, real-world data streams.
-      - Managed client relations, logistics, financials, and change controls, ensuring seamless execution, cost-effectiveness, and high customer satisfaction across all job phases.
-      - Prepared technical sales pitches, end-of-job reports, and presentations, translating operational data into insights that supported business development and continuous improvement.
-
+skills:
   - category: AI & Machine Learning
     keywords:
       - Python
@@ -87,6 +52,7 @@ experience:
       - LoRA / PEFT
       - Retrieval-Augmented Generation
       - Multimodal Processing
+      - Model Evaluation Pipelines
 
   - category: AI Systems & Infrastructure
     keywords:
@@ -99,7 +65,7 @@ experience:
   - category: Cloud Platforms
     keywords:
       - AWS (Bedrock, SageMaker, Lambda, SQS, EMR)
-      - Azure (Synapse, OpenAI)
+      - Azure (Synapse, Azure OpenAI)
 
   - category: Observability & Operations
     keywords:
@@ -108,6 +74,7 @@ experience:
       - ELK Stack
       - Production Monitoring
       - Drift Detection
+      - AI System Observability
 
   - category: Data Engineering
     keywords:
@@ -117,8 +84,63 @@ experience:
 
   - category: Systems Languages
     keywords:
-      - Rust (systems-level experimentation)
-      - Go (Kubernetes ecosystem literacy)
+      - Rust (systems experimentation)
+      - Go (Kubernetes ecosystem)
+
+experience:
+  - company: YouGov (formerly GfK)
+    position: Machine Learning Engineer
+    location: Nuremberg, Germany
+    startDate: July 2024
+    endDate: Present
+    summary: >
+      Design and operation of production AI systems for retail intelligence
+      and multimodal document processing.
+    highlights:
+      - Architected and deployed a production Receipt Intelligence Platform combining OCR, vision-language models, and LLM pipelines to extract structured FMCG retail data across international receipt formats.
+      - Owned the end-to-end lifecycle of AI workflows including ingestion pipelines, model inference systems, evaluation frameworks, and monitoring infrastructure.
+      - Designed data-centric evaluation pipelines including synthetic dataset generation and error-driven feedback loops to improve model robustness against noisy real-world inputs.
+      - Built scalable inference infrastructure using AWS Bedrock, Lambda, SQS, MongoDB, and Terraform enabling automated high-volume retail data processing.
+      - Implemented model observability frameworks tracking model behavior, latency, and operational regressions.
+      - Supported controlled model lifecycle management using SageMaker Pipelines and GitLab CI/CD.
+
+  - company: Machine Learning Reply GmbH
+    position: Machine Learning Consultant
+    location: Munich, Germany
+    startDate: April 2022
+    endDate: May 2024
+    summary: >
+      Delivered enterprise AI and data platform solutions across finance and
+      automotive industries.
+    highlights:
+      - Delivered applied AI solutions and data platforms for enterprise clients including Allianz, Volkswagen, and Porsche.
+      - Built containerized RAG-based document intelligence systems on Azure enabling privacy-preserving enterprise knowledge workflows.
+      - Established repeatable deployment patterns for ML workloads on Kubernetes with integrated observability and monitoring.
+      - Migrated approximately 1 PB of legacy infrastructure from Cloudera to AWS redesigning pipelines using Spark on EMR with modern CI/CD practices.
+      - Designed secure enterprise ingestion pipelines integrating on-prem APIs with Azure Synapse.
+
+  - company: Fraunhofer IKS
+    position: Data Scientist (Research Engineer)
+    location: Munich, Germany
+    startDate: May 2021
+    endDate: March 2022
+    summary: >
+      Research focused on reliable AI systems for safety-critical environments.
+    highlights:
+      - Developed hybrid anomaly detection systems combining deep learning with rule-based reasoning.
+      - Applied contrastive learning (MoCo) to improve robustness in sparse anomaly detection scenarios.
+      - Collaborated with domain experts to transition research prototypes into production-ready system designs.
+
+  - company: SLB (Schlumberger)
+    position: Field Engineer
+    location: Land & Offshore Operations
+    startDate: Dec 2015
+    endDate: Apr 2018
+    highlights:
+      - Led end-to-end well intervention operations including matrix acidizing, nitrogen lift, and fishing operations for major operators including Total, Shell, and ExxonMobil.
+      - Installed field instrumentation and performed real-time data analysis guiding operational decisions in complex environments.
+      - Managed client relations, logistics, and operational financials across field operations.
+      - Produced technical reports and operational analyses supporting technical sales and business development.
 
 education:
   - institution: Universität Hildesheim

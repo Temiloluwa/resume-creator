@@ -110,6 +110,10 @@
       text-decoration: none;
     }
 
+    .contact-location {
+      white-space: pre-line;
+    }
+
     section {
       margin-bottom: var(--section-gap);
     }
@@ -223,9 +227,10 @@
         <p class="label">{{ cv.basics.label }}</p>
       </div>
       <ul class="contact-grid">
-        {% if cv.basics.location %}<li><strong>LOC:</strong> {{ cv.basics.location }}</li>{% endif %}
+        {% if cv.basics.location %}<li><strong>LOC:</strong> <span class="contact-location">{{ cv.basics.location }}</span></li>{% endif %}
         {% if cv.basics.phone %}<li><strong>PHONE:</strong> {{ cv.basics.phone }}</li>{% endif %}
         {% if cv.basics.email %}<li><strong>MAIL:</strong> {{ cv.basics.email }}</li>{% endif %}
+        {% if cv.basics.work_authorization %}<li><strong>WORK:</strong> {{ cv.basics.work_authorization }}</li>{% endif %}
         {% for profile in cv.basics.profiles %}
         <li><strong>{{ profile.network|upper }}:</strong> {% if profile.url %}<a href="{{ profile.url }}">{{ profile.username or profile.url }}</a>{% else %}{{ profile.username }}{% endif %}</li>
         {% endfor %}
@@ -239,20 +244,34 @@
     </section>
     {% endif %}
 
-    {% if cv.core_expertise %}
+    {% if cv.key_achievements %}
     <section>
-      <h2 class="section-title">Core Expertise</h2>
-      <ul class="chip-list">
-        {% for item in cv.core_expertise %}
-        <li class="chip">{{ item }}</li>
+      <h2 class="section-title">Key Achievements</h2>
+      <ul>
+        {% for item in cv.key_achievements %}
+        <li>{{ item }}</li>
         {% endfor %}
       </ul>
     </section>
     {% endif %}
 
+    {% if cv.skills %}
+    <section>
+      <h2 class="section-title">Technical Leadership and Architecture</h2>
+      <div class="skills-grid">
+        {% for skill in cv.skills %}
+        <article class="skill-item">
+          <div class="entry-title">{{ skill.category }}</div>
+          <p>{{ skill.keywords | join(' · ') }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
     {% if cv.experience %}
     <section>
-      <h2 class="section-title">Experience</h2>
+      <h2 class="section-title">Engineering Experience</h2>
       {% for item in cv.experience %}
       <article class="experience-item">
         <div class="entry-head">
@@ -284,20 +303,6 @@
         {% if project.description %}<p>{{ project.description }}</p>{% endif %}
       </article>
       {% endfor %}
-    </section>
-    {% endif %}
-
-    {% if cv.skills %}
-    <section>
-      <h2 class="section-title">Skills</h2>
-      <div class="skills-grid">
-        {% for skill in cv.skills %}
-        <article class="skill-item">
-          <div class="entry-title">{{ skill.category }}</div>
-          <p>{{ skill.keywords | join(' · ') }}</p>
-        </article>
-        {% endfor %}
-      </div>
     </section>
     {% endif %}
 

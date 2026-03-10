@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 import sys
+import re
+from datetime import datetime
 from pathlib import Path
 
 from .config import STYLES
@@ -17,12 +19,16 @@ def main(argv: list[str] | None = None) -> int:
     project_root = _project_root()
     content_path = project_root / "cv-content.yaml"
     template_dir = project_root / "src" / "cv_generator" / "templates"
-    html_dir = project_root / "output" / "html"
-    pdf_dir = project_root / "output" / "pdf"
+    cv_data = load_cv_content(content_path)
+    role_dir = _normalized_role(cv_data.basics.label or "cv")
+    date_dir = datetime.now().date().isoformat()
+    output_root = project_root / "output" / role_dir / date_dir
+    html_dir = output_root / "html"
+    pdf_dir = output_root / "pdf"
 
     try:
         if args.command == "html":
-            rendered = _run_html(content_path, template_dir, html_dir, project_root)
+            rendered = _run_html(cv_data, template_dir, html_dir, project_root)
             for item in rendered:
                 print(
                     f"HTML [{item.style.display_name}] -> {item.html_path} "
@@ -37,7 +43,7 @@ def main(argv: list[str] | None = None) -> int:
             return 0
 
         if args.command == "all":
-            rendered = _run_html(content_path, template_dir, html_dir, project_root)
+            rendered = _run_html(cv_data, template_dir, html_dir, project_root)
             outputs = convert_all_html_to_pdf(html_dir, pdf_dir)
             for item in rendered:
                 print(
@@ -81,14 +87,13 @@ def _build_parser() -> argparse.ArgumentParser:
 
 
 def _run_html(
-    content_path: Path,
+    cv_data,
     template_dir: Path,
     html_dir: Path,
     project_root: Path,
 ):
-    data = load_cv_content(content_path)
     return render_all_html(
-        cv_data=data,
+        cv_data=cv_data,
         template_dir=template_dir,
         output_dir=html_dir,
         base_url=str(project_root),
@@ -109,6 +114,29 @@ def _clean_outputs(html_dir: Path, pdf_dir: Path) -> list[Path]:
 
 def _project_root() -> Path:
     return Path(__file__).resolve().parents[2]
+
+
+def _normalized_role(label: str) -> str:
+    primary = re.split(r"[|/,-]", label)[0].strip().lower()
+    replacements = {
+        "machine learning": "ai",
+        "ml": "ai",
+        "applied ai": "ai",
+        "artificial intelligence": "ai",
+    }
+    for src, dst in replacements.items():
+        primary = primary.replace(src, dst)
+
+    primary = re.sub(
+        r"\b(senior|jr|junior|principal|staff|lead|head|sr)\b",
+        "",
+        primary,
+    )
+    slug = re.sub(r"[^a-z0-9]+", "-", primary).strip("-")
+    if not slug:
+        return "cv"
+    slug = re.sub(r"-{2,}", "-", slug)
+    return slug
 
 
 if __name__ == "__main__":
