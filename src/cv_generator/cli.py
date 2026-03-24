@@ -86,16 +86,6 @@ def _run_html(
 def _clean_outputs(html_dir: Path, pdf_dir: Path, cv_data: CVData) -> list[Path]:
     removed: list[Path] = []
 
-    legacy_candidates = (
-        html_dir / "cv.html",
-        pdf_dir / "cv.pdf",
-    )
-
-    for candidate in legacy_candidates:
-        if candidate.exists():
-            candidate.unlink()
-            removed.append(candidate)
-
     for variant in cv_data.variants:
         for candidate in (
             html_dir / variant.get_html_filename(cv_data.output.filename),
