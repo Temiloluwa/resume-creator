@@ -5,9 +5,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import urlparse
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader, select_autoescape, Template
 
-from .config import ROLE_VARIANTS, TEMPLATE_NAME, RoleVariant
+from .config import TEMPLATE_NAME, RoleVariant
 from .fit import FitParams, FitResult, fit_to_two_pages
 from .models import CVData
 
@@ -28,13 +28,17 @@ def build_template_environment(template_dir: Path) -> Environment:
         lstrip_blocks=False,
         trim_blocks=False,
     )
-    env.filters["collapse_lines"] = collapse_lines
-    env.filters["company_name"] = company_name
-    env.filters["company_note"] = company_note
-    env.filters["join_date_range"] = join_date_range
-    env.filters["join_keywords"] = join_keywords
-    env.filters["display_location"] = display_location
-    env.filters["display_profile"] = display_profile
+    # Register custom Jinja2 filters
+    filters = {
+        "collapse_lines": collapse_lines,
+        "company_name": company_name,
+        "company_note": company_note,
+        "join_date_range": join_date_range,
+        "join_keywords": join_keywords,
+        "display_location": display_location,
+        "display_profile": display_profile,
+    }
+    env.filters.update(filters)
     return env
 
 
@@ -50,11 +54,12 @@ def render_all_html(
     template = env.get_template(TEMPLATE_NAME)
 
     rendered: list[RenderedHTML] = []
-    for variant in ROLE_VARIANTS:
+    for variant in cv_data.variants:
         base_context = _variant_context(cv_data, variant)
         best = _fit_variant(template, base_context, cv_data, base_url=base_url)
 
-        html_path = output_dir / variant.html_filename
+        html_filename = variant.get_html_filename(cv_data.output.filename)
+        html_path = output_dir / html_filename
         html_path.write_text(best.html, encoding="utf-8")
         rendered.append(
             RenderedHTML(
@@ -77,7 +82,13 @@ class _VariantFit:
     experience_split: int
 
 
-def _fit_variant(template, base_context: dict, cv_data: CVData, *, base_url: str | None) -> _VariantFit:
+def _fit_variant(
+    template: Template,
+    base_context: dict,
+    cv_data: CVData,
+    *,
+    base_url: str | None = None,
+) -> _VariantFit:
     experiences = base_context["cv"]["experience"]
     candidate_splits = list(range(1, len(experiences))) or [0]
     best: _VariantFit | None = None
@@ -107,7 +118,9 @@ def _fit_variant(template, base_context: dict, cv_data: CVData, *, base_url: str
     if best is not None:
         return best
 
-    raise RuntimeError("Unable to fit CV content into exactly two pages for any experience split.")
+    raise RuntimeError(
+        "Unable to fit CV content into exactly two pages for any experience split."
+    )
 
 
 def _variant_context(cv_data: CVData, variant: RoleVariant) -> dict:

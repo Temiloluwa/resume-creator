@@ -1,9 +1,27 @@
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 
-
 TEMPLATE_NAME = "cv_v4_modern_teal_single_column.j2.html"
+
+
+def sanitize_role(label: str) -> str:
+    """
+    Sanitize a role label by removing stop words and slugifying.
+    Example: 'Senior Applied AI Engineer' -> 'applied-ai-engineer'
+    """
+    stop_words = {"senior", "junior", "lead", "principal", "staff"}
+    # Lowercase and split into words
+    words = label.lower().split()
+    # Filter out stop words
+    filtered_words = [w for w in words if w not in stop_words]
+    # Join and replace non-alphanumeric with hyphens
+    text = "-".join(filtered_words)
+    text = re.sub(r"[^a-z0-9]+", "-", text)
+    # Collapse multiple hyphens and trim
+    text = re.sub(r"-+", "-", text).strip("-")
+    return text
 
 
 @dataclass(frozen=True)
@@ -12,40 +30,16 @@ class RoleVariant:
     label: str
     introduction: str
 
-    @property
-    def html_filename(self) -> str:
+    def get_html_filename(self, template: str | None = None) -> str:
+        if template:
+            sanitized = sanitize_role(self.label)
+            # Replace <role> and change extension to .html
+            filename = template.replace("<role>", sanitized)
+            return filename.rsplit(".", 1)[0] + ".html"
         return f"{self.slug}.html"
 
-    @property
-    def pdf_filename(self) -> str:
+    def get_pdf_filename(self, template: str | None = None) -> str:
+        if template:
+            sanitized = sanitize_role(self.label)
+            return template.replace("<role>", sanitized)
         return f"{self.slug}.pdf"
-
-
-ROLE_VARIANTS: tuple[RoleVariant, ...] = (
-    RoleVariant(
-        slug="adeoti-t-applied-ai-engineer-2026",
-        label="Senior Applied AI Engineer",
-        introduction=(
-            "Senior Applied AI Engineer with 5+ years building production ML systems — "
-            "from multimodal LLM pipelines and RAG architectures to cloud-native inference "
-            "infrastructure on AWS and Azure. Delivered enterprise AI solutions generating "
-            "€500k+ revenue for Allianz, Volkswagen, and Porsche. Background spanning "
-            "industrial field engineering, enterprise technology consulting, and applied AI, "
-            "providing a practical understanding of noisy real-world data and operational "
-            "system constraints."
-        ),
-    ),
-    RoleVariant(
-        slug="adeoti-t-ml-engineer-2026",
-        label="Senior Machine Learning Engineer",
-        introduction=(
-            "Senior Machine Learning Engineer with 5+ years building production ML systems — "
-            "from multimodal LLM pipelines and RAG architectures to cloud-native inference "
-            "infrastructure on AWS and Azure. Delivered enterprise AI solutions generating "
-            "€500k+ revenue for Allianz, Volkswagen, and Porsche. Background spanning "
-            "industrial field engineering, enterprise technology consulting, and applied "
-            "machine learning, providing a practical understanding of noisy real-world data "
-            "and operational system constraints."
-        ),
-    ),
-)

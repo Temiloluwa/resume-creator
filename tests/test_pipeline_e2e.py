@@ -9,7 +9,6 @@ try:
 except Exception as exc:  # pragma: no cover - environment-dependent native libs
     pytest.skip(f"WeasyPrint runtime unavailable: {exc}", allow_module_level=True)
 
-from cv_generator.config import ROLE_VARIANTS
 from cv_generator.fit import fit_to_two_pages
 from cv_generator.loader import load_cv_content
 from cv_generator.pdf import convert_html_directory_to_pdf, count_pdf_pages
@@ -23,7 +22,9 @@ def _all_content_strings_present(html: str, values: list[str]) -> None:
             assert text in html
 
 
-def test_full_pipeline_generates_two_role_variants_with_reference_header(tmp_path: Path) -> None:
+def test_full_pipeline_generates_two_role_variants_with_reference_header(
+    tmp_path: Path,
+) -> None:
     repo_root = Path(__file__).resolve().parents[1]
     data = load_cv_content(repo_root / "cv-content.yaml")
 
@@ -37,7 +38,7 @@ def test_full_pipeline_generates_two_role_variants_with_reference_header(tmp_pat
         base_url=str(repo_root),
     )
 
-    assert len(rendered) == len(ROLE_VARIANTS) == 2
+    assert len(rendered) == len(data.variants) == 2
 
     html_texts: dict[str, str] = {}
     for item in rendered:
@@ -46,14 +47,14 @@ def test_full_pipeline_generates_two_role_variants_with_reference_header(tmp_pat
         html_text = item.html_path.read_text(encoding="utf-8")
         html_texts[item.variant.slug] = html_text
 
-        assert '@page {' in html_text
-        assert 'size: A4;' in html_text
+        assert "@page {" in html_text
+        assert "size: A4;" in html_text
         assert 'class="contact-row"' in html_text
         assert 'class="contact-grid"' not in html_text
-        assert 'References available on request' not in html_text
+        assert "References available on request" not in html_text
         assert html_text.count('<div class="page">') == 2
         assert html_text.count('class="contact-row"') == 2
-        assert 'Co. Louth, Ireland' in html_text
+        assert "Co. Louth, Ireland" in html_text
         assert data.basics.name in html_text
         assert data.basics.email in html_text
         assert data.basics.phone in html_text
@@ -76,7 +77,9 @@ def test_full_pipeline_generates_two_role_variants_with_reference_header(tmp_pat
             expected_strings.extend(exp.highlights)
 
         for edu in data.education:
-            expected_strings.extend([edu.institution, edu.area, edu.startDate, edu.endDate, edu.grade])
+            expected_strings.extend(
+                [edu.institution, edu.area, edu.startDate, edu.endDate, edu.grade]
+            )
 
         for lang in data.languages:
             expected_strings.extend([lang.language, lang.fluency])
@@ -88,17 +91,17 @@ def test_full_pipeline_generates_two_role_variants_with_reference_header(tmp_pat
 
         _all_content_strings_present(html_text, expected_strings)
 
-    applied = html_texts["senior_applied_ai_engineer"]
-    ml = html_texts["senior_machine_learning_engineer"]
+    applied = html_texts[data.variants[0].slug]
+    ml = html_texts[data.variants[1].slug]
 
-    assert "Senior Applied AI Engineer" in applied
-    assert "Senior Applied AI Engineer" not in ml
-    assert "Senior Machine Learning Engineer" in ml
-    assert "Senior Machine Learning Engineer" not in applied
-    assert data.introduction in applied
-    assert data.introduction not in ml
+    assert data.variants[0].label in applied
+    assert data.variants[0].label not in ml
+    assert data.variants[1].label in ml
+    assert data.variants[1].label not in applied
+    assert data.variants[0].introduction in applied
+    assert data.variants[0].introduction not in ml
 
-    pdf_paths = convert_html_directory_to_pdf(html_dir, pdf_dir)
+    pdf_paths = convert_html_directory_to_pdf(html_dir, pdf_dir, data)
     assert len(pdf_paths) == 2
     for pdf_path in pdf_paths:
         assert pdf_path.exists()
@@ -127,5 +130,7 @@ def test_fit_search_fails_when_bounded_scale_cannot_reach_two_pages() -> None:
     def counter(_html: str, _base_url: str | None) -> int:
         return 3
 
-    with pytest.raises(RuntimeError, match="Unable to fit CV content into exactly two pages"):
+    with pytest.raises(
+        RuntimeError, match="Unable to fit CV content into exactly two pages"
+    ):
         fit_to_two_pages(render, page_counter=counter)

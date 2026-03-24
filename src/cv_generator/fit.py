@@ -91,5 +91,7 @@ def fit_to_two_pages(
             best = result
 
     if best is None:
-        raise RuntimeError("Unable to find a bounded scale that produces exactly two pages.")
+        raise RuntimeError(
+            "Unable to find a bounded scale that produces exactly two pages."
+        )
     return best
