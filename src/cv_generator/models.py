@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from typing import Any
 
+from .config import RoleVariant
+
 
 @dataclass
 class Profile:
@@ -29,14 +31,7 @@ class ExperienceItem:
     location: str = ""
     startDate: str = ""
     endDate: str = ""
-    summary: str = ""
     highlights: list[str] = field(default_factory=list)
-
-
-@dataclass
-class ProjectItem:
-    name: str = ""
-    description: str = ""
 
 
 @dataclass
@@ -49,7 +44,8 @@ class SkillCategory:
 class EducationItem:
     institution: str = ""
     area: str = ""
-    date: str = ""
+    startDate: str = ""
+    endDate: str = ""
     grade: str = ""
 
 
@@ -61,25 +57,30 @@ class VolunteerItem:
 
 
 @dataclass
-class ProfessionalFocus:
-    intro: str = ""
-    details: list[str] = field(default_factory=list)
+class LanguageItem:
+    language: str = ""
+    fluency: str = ""
+
+
+@dataclass
+class OutputConfig:
+    filename: str = "cv.pdf"
+    format: str = "pdf"
 
 
 @dataclass
 class CVData:
     basics: Basics = field(default_factory=Basics)
+    output: OutputConfig = field(default_factory=OutputConfig)
+    variants: list[RoleVariant] = field(default_factory=list)
     introduction: str = ""
     key_achievements: list[str] = field(default_factory=list)
-    technical_leadership: list[str] = field(default_factory=list)
-    core_expertise: list[str] = field(default_factory=list)
     experience: list[ExperienceItem] = field(default_factory=list)
-    selected_projects: list[ProjectItem] = field(default_factory=list)
     skills: list[SkillCategory] = field(default_factory=list)
     education: list[EducationItem] = field(default_factory=list)
     certifications: list[str] = field(default_factory=list)
+    languages: list[LanguageItem] = field(default_factory=list)
     volunteers: list[VolunteerItem] = field(default_factory=list)
-    professional_focus: ProfessionalFocus = field(default_factory=ProfessionalFocus)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "CVData":
@@ -94,8 +95,8 @@ class CVData:
                 "positions",
             )
         )
-        experience_entries, skill_entries_from_experience = _split_experience_and_skills(
-            raw_experience_entries
+        experience_entries, skill_entries_from_experience = (
+            _split_experience_and_skills(raw_experience_entries)
         )
 
         basics_raw = _as_dict(_pick(root, "basics", "contact", "personal"))
@@ -104,7 +105,9 @@ class CVData:
             label=_as_text(_pick(basics_raw, "label", "headline", "title", "role")),
             email=_as_text(_pick(basics_raw, "email", "mail")),
             phone=_as_text(_pick(basics_raw, "phone", "telephone", "mobile")),
-            location=_normalize_location(_pick(basics_raw, "location", "address", "city")),
+            location=_normalize_location(
+                _pick(basics_raw, "location", "address", "city")
+            ),
             work_authorization=_as_text(
                 _pick(
                     basics_raw,
@@ -117,40 +120,56 @@ class CVData:
             profiles=_parse_profiles(_pick(basics_raw, "profiles", "social", "links")),
         )
 
-        professional_focus_raw = _as_dict(
-            _pick(root, "professional_focus", "focus", "what_i_build")
+        output_raw = _as_dict(data.get("output"))
+        output_config = OutputConfig(
+            filename=_as_text(_pick(output_raw, "filename")),
+            format=_as_text(_pick(output_raw, "format")),
         )
-        technical_leadership = _as_list_of_text(
-            _pick(root, "technical_leadership", "leadership", "platform_focus")
+
+        variants_raw = _as_list_of_dicts(data.get("variants"))
+        introduction_text = _as_text(
+            _pick(root, "introduction", "summary", "profile", "about")
         )
-        core_expertise = _as_list_of_text(
-            _pick(root, "core_expertise", "expertise", "specializations", "strengths")
-        )
-        if not core_expertise:
-            core_expertise = technical_leadership
+
+        variants = [
+            RoleVariant(
+                slug=_as_text(v.get("slug")),
+                label=_as_text(v.get("label")),
+                introduction=_as_text(v.get("introduction")),
+            )
+            for v in variants_raw
+        ]
+
+        if not variants:
+            variants = [
+                RoleVariant(
+                    slug="cv",
+                    label=basics.label,
+                    introduction=introduction_text,
+                )
+            ]
 
         return cls(
             basics=basics,
-            introduction=_as_text(
-                _pick(root, "introduction", "summary", "profile", "about")
-            ),
+            output=output_config,
+            variants=variants,
+            introduction=introduction_text,
             key_achievements=_as_list_of_text(
                 _pick(root, "key_achievements", "achievements", "impact_highlights")
             ),
-            technical_leadership=technical_leadership,
-            core_expertise=core_expertise,
             experience=[
                 ExperienceItem(
                     company=_as_text(
                         _pick(item, "company", "organization", "employer", "client")
                     ),
                     position=_as_text(_pick(item, "position", "role", "title")),
-                    location=_normalize_location(_pick(item, "location", "city", "onsite")),
+                    location=_normalize_location(
+                        _pick(item, "location", "city", "onsite")
+                    ),
                     startDate=_as_text(
                         _pick(item, "startDate", "start_date", "start", "from")
                     ),
                     endDate=_as_text(_pick(item, "endDate", "end_date", "end", "to")),
-                    summary=_as_text(_pick(item, "summary", "overview", "description")),
                     highlights=_as_list_of_text(
                         _pick(
                             item,
@@ -164,15 +183,6 @@ class CVData:
                 )
                 for item in experience_entries
             ],
-            selected_projects=[
-                ProjectItem(
-                    name=_as_text(_pick(item, "name", "title", "project")),
-                    description=_as_text(_pick(item, "description", "summary", "details")),
-                )
-                for item in _as_list_of_dicts(
-                    _pick(root, "selected_projects", "projects", "key_projects")
-                )
-            ],
             skills=_merge_skills(
                 _parse_skills(_pick(root, "skills", "skill_groups", "competencies")),
                 _parse_skills(skill_entries_from_experience),
@@ -180,10 +190,28 @@ class CVData:
             education=[
                 EducationItem(
                     institution=_as_text(
-                        _pick(item, "institution", "school", "university", "organization")
+                        _pick(
+                            item, "institution", "school", "university", "organization"
+                        )
                     ),
-                    area=_as_text(_pick(item, "area", "degree", "program", "qualification")),
-                    date=_as_text(_pick(item, "date", "year", "period", "duration")),
+                    area=_as_text(
+                        _pick(item, "area", "degree", "program", "qualification")
+                    ),
+                    startDate=_as_text(
+                        _pick(item, "startDate", "start_date", "start", "from", "year")
+                    ),
+                    endDate=_as_text(
+                        _pick(
+                            item,
+                            "endDate",
+                            "end_date",
+                            "end",
+                            "to",
+                            "date",
+                            "period",
+                            "duration",
+                        )
+                    ),
                     grade=_as_text(_pick(item, "grade", "result", "gpa")),
                 )
                 for item in _as_list_of_dicts(_pick(root, "education", "academics"))
@@ -191,6 +219,13 @@ class CVData:
             certifications=_as_list_of_text(
                 _pick(root, "certifications", "certs", "licenses")
             ),
+            languages=[
+                LanguageItem(
+                    language=_as_text(_pick(item, "language", "name")),
+                    fluency=_as_text(_pick(item, "fluency", "level", "proficiency")),
+                )
+                for item in _as_list_of_dicts(_pick(root, "languages", "language"))
+            ],
             volunteers=[
                 VolunteerItem(
                     organization=_as_text(
@@ -203,12 +238,6 @@ class CVData:
                     _pick(root, "volunteers", "volunteering", "community")
                 )
             ],
-            professional_focus=ProfessionalFocus(
-                intro=_as_text(_pick(professional_focus_raw, "intro", "summary")),
-                details=_as_list_of_text(
-                    _pick(professional_focus_raw, "details", "points", "bullets")
-                ),
-            ),
         )
 
     def to_context(self) -> dict[str, Any]:
@@ -216,6 +245,7 @@ class CVData:
 
 
 def _resolve_root(data: dict[str, Any]) -> dict[str, Any]:
+    """Extract the root data object, handling nested 'cv' or 'sections' keys."""
     if not isinstance(data, dict):
         return {}
 
@@ -233,6 +263,7 @@ def _resolve_root(data: dict[str, Any]) -> dict[str, Any]:
 
 
 def _pick(mapping: dict[str, Any], *keys: str) -> Any:
+    """Return the first non-None value for any of the given keys in mapping."""
     for key in keys:
         if key in mapping and mapping[key] is not None:
             return mapping[key]
@@ -240,12 +271,14 @@ def _pick(mapping: dict[str, Any], *keys: str) -> Any:
 
 
 def _as_dict(value: Any) -> dict[str, Any]:
+    """Convert value to dict, or return empty dict if not a dict."""
     if isinstance(value, dict):
         return value
     return {}
 
 
 def _as_text(value: Any) -> str:
+    """Convert value to stripped string, or empty string if None."""
     if value is None:
         return ""
     if isinstance(value, str):
@@ -254,6 +287,7 @@ def _as_text(value: Any) -> str:
 
 
 def _as_list_of_text(value: Any) -> list[str]:
+    """Convert value to list of stripped strings, filtering out empty values."""
     if value is None:
         return []
 
@@ -322,7 +356,9 @@ def _parse_profiles(value: Any) -> list[Profile]:
                 )
             else:
                 text = _as_text(raw)
-                profiles.append(Profile(network=_as_text(network), username=text, url=text))
+                profiles.append(
+                    Profile(network=_as_text(network), username=text, url=text)
+                )
         return profiles
 
     return []

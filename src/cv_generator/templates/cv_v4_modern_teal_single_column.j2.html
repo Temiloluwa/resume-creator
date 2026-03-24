@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ cv.basics.name }} — {{ cv.basics.label }}</title>
+<style>
+  :root {
+    --fit-scale: {{ "%.4f"|format(fit.scale) }};
+    --page-width: 210mm;
+    --page-height: 297mm;
+    --page-padding-top: calc(10mm * var(--fit-scale));
+    --page-padding-x: calc(12mm * var(--fit-scale));
+    --page-padding-bottom: calc(12mm * var(--fit-scale));
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: calc(10.35pt * var(--fit-scale));
+    color: #222;
+    background: #fff;
+    line-height: calc(1.42 * var(--fit-scale));
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: var(--page-width);
+    min-height: var(--page-height);
+    padding: var(--page-padding-top) var(--page-padding-x) var(--page-padding-bottom);
+    background: #fff;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .page:last-of-type {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .header {
+    border-bottom: calc(1.1mm * var(--fit-scale)) solid #00897B;
+    padding-bottom: calc(4.3mm * var(--fit-scale));
+    margin-bottom: calc(5mm * var(--fit-scale));
+  }
+
+  .header h1 {
+    font-size: calc(25.0pt * var(--fit-scale));
+    font-weight: 700;
+    color: #00695C;
+    letter-spacing: -0.5px;
+  }
+
+  .header .label {
+    font-size: calc(12.35pt * var(--fit-scale));
+    color: #00897B;
+    font-weight: 500;
+    margin-top: calc(0.5mm * var(--fit-scale));
+    margin-bottom: calc(2.7mm * var(--fit-scale));
+  }
+
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(1.6mm * var(--fit-scale)) calc(5.5mm * var(--fit-scale));
+    font-size: calc(8.9pt * var(--fit-scale));
+    color: #444;
+    margin-top: calc(1.9mm * var(--fit-scale));
+  }
+
+  .contact-row a { color: #00695C; text-decoration: none; }
+  .contact-row span::before { content: ""; }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: calc(1.1mm * var(--fit-scale));
+    white-space: nowrap;
+  }
+
+  .contact-item .icon { color: #00897B; font-weight: bold; }
+  .contact-item a { white-space: nowrap; }
+
+  section { margin-bottom: calc(4.7mm * var(--fit-scale)); }
+
+  .section-title {
+    font-size: calc(9.75pt * var(--fit-scale));
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    color: #00695C;
+    border-bottom: calc(0.45mm * var(--fit-scale)) solid #B2DFDB;
+    padding-bottom: calc(0.8mm * var(--fit-scale));
+    margin-bottom: calc(2.2mm * var(--fit-scale));
+  }
+
+  .summary p { color: #333; font-size: calc(9.75pt * var(--fit-scale)); line-height: calc(1.31 * var(--fit-scale)); }
+
+  .achievements ul,
+  .exp-item ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .achievements ul li,
+  .exp-item ul li {
+    padding-left: calc(3.8mm * var(--fit-scale));
+    position: relative;
+    color: #333;
+  }
+
+  .achievements ul li {
+    margin-bottom: calc(0.9mm * var(--fit-scale));
+    font-size: calc(9.4pt * var(--fit-scale));
+    line-height: calc(1.23 * var(--fit-scale));
+  }
+
+  .achievements ul li::before,
+  .exp-item ul li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #00897B;
+  }
+
+  .achievements ul li::before {
+    font-size: calc(8.5pt * var(--fit-scale));
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(1.8mm * var(--fit-scale)) calc(5mm * var(--fit-scale));
+  }
+
+  .skill-category .cat-name {
+    font-size: calc(8.75pt * var(--fit-scale));
+    font-weight: 700;
+    color: #00695C;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: calc(0.3mm * var(--fit-scale));
+  }
+
+  .skill-category .tags {
+    font-size: calc(8.75pt * var(--fit-scale));
+    color: #444;
+    line-height: calc(1.45 * var(--fit-scale));
+  }
+
+  .exp-item { margin-bottom: calc(3.3mm * var(--fit-scale)); }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: calc(1mm * var(--fit-scale));
+  }
+
+  .exp-header .company {
+    font-weight: 700;
+    font-size: calc(10.65pt * var(--fit-scale));
+    color: #222;
+  }
+
+  .exp-header .dates {
+    font-size: calc(8.45pt * var(--fit-scale));
+    color: #888;
+    white-space: nowrap;
+  }
+
+  .exp-position {
+    font-size: calc(9.55pt * var(--fit-scale));
+    color: #00897B;
+    font-weight: 600;
+    margin-bottom: calc(0.15mm * var(--fit-scale));
+  }
+
+  .exp-location {
+    font-size: calc(8.45pt * var(--fit-scale));
+    color: #999;
+    margin-bottom: calc(1.15mm * var(--fit-scale));
+  }
+
+  .exp-item ul li {
+    margin-bottom: calc(0.65mm * var(--fit-scale));
+    font-size: calc(9.0pt * var(--fit-scale));
+    line-height: calc(1.2 * var(--fit-scale));
+  }
+
+  .exp-item ul li::before {
+    font-size: calc(8.1pt * var(--fit-scale));
+    top: 0;
+  }
+
+  .edu-item { margin-bottom: calc(2.2mm * var(--fit-scale)); }
+
+  .edu-item .degree {
+    font-weight: 700;
+    font-size: calc(10.0pt * var(--fit-scale));
+  }
+
+  .edu-item .institution {
+    color: #00897B;
+    font-size: calc(9.35pt * var(--fit-scale));
+  }
+
+  .edu-item .edu-meta {
+    font-size: calc(8.4pt * var(--fit-scale));
+    color: #888;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 calc(6mm * var(--fit-scale));
+  }
+
+  .certs-list, .lang-list {
+    list-style: none;
+    padding: 0;
+    font-size: calc(8.95pt * var(--fit-scale));
+    color: #333;
+  }
+
+  .certs-list li, .lang-list li {
+    padding-left: calc(3mm * var(--fit-scale));
+    position: relative;
+    margin-bottom: calc(0.55mm * var(--fit-scale));
+  }
+
+  .certs-list li::before, .lang-list li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: #00897B;
+    font-weight: bold;
+  }
+
+  .lang-list .level {
+    color: #888;
+    font-size: calc(8.15pt * var(--fit-scale));
+  }
+
+  .vol-item {
+    display: flex;
+    justify-content: space-between;
+    gap: calc(2.5mm * var(--fit-scale));
+    font-size: calc(8.9pt * var(--fit-scale));
+    margin-bottom: calc(0.75mm * var(--fit-scale));
+  }
+
+  .vol-item .org { font-weight: 600; }
+  .vol-item .vol-period { color: #888; font-size: calc(8.45pt * var(--fit-scale)); white-space: nowrap; }
+
+  .soft-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <h1>{{ cv.basics.name }}</h1>
+    <div class="label">{{ cv.basics.label }}</div>
+    <div class="contact-row">
+      <span class="contact-item"><span class="icon">✉</span> <a href="mailto:{{ cv.basics.email }}">{{ cv.basics.email }}</a></span>
+      <span class="contact-item"><span class="icon">☎</span> {{ cv.basics.phone }}</span>
+      <span class="contact-item"><span class="icon">⌖</span> {{ cv.basics.location | display_location }}</span>
+      <span class="contact-item"><span class="icon">✔</span> {{ cv.basics.work_authorization }}</span>
+    </div>
+    <div class="contact-row">
+      {% for profile in cv.basics.profiles[:4] %}
+      <span class="contact-item"><a href="{{ profile.url }}">{{ profile.url | display_profile(profile.username) }}</a></span>
+      {% endfor %}
+    </div>
+  </div>
+
+  <section class="summary soft-break">
+    <div class="section-title">Profile</div>
+      <p>{{ cv.introduction | safe }}</p>
+  </section>
+
+  <section class="achievements soft-break">
+    <div class="section-title">Key Achievements</div>
+    <ul>
+      {% for item in cv.key_achievements %}
+        <li>{{ item | safe }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="soft-break">
+    <div class="section-title">Core Skills &amp; Specialisation</div>
+    <div class="skills-grid">
+      {% for skill in cv.skills %}
+      <div class="skill-category">
+        <div class="cat-name">{{ skill.category }}</div>
+        <div class="tags">{{ skill.keywords | join_keywords | safe }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% if experience_page_one %}
+  <section>
+    <div class="section-title">Work Experience</div>
+    {% for item in experience_page_one %}
+    <div class="exp-item soft-break">
+      <div class="exp-header">
+        <span class="company">{{ item.company | company_name }}{% if item.company | company_note %} <span style="font-weight:400;color:#888;">{{ item.company | company_note }}</span>{% endif %}</span>
+        <span class="dates">{{ item.startDate | join_date_range(item.endDate) }}</span>
+      </div>
+      <div class="exp-position">{{ item.position }}</div>
+      <div class="exp-location">{{ item.location | collapse_lines }}</div>
+      <ul>
+        {% for highlight in item.highlights %}
+        <li>{{ highlight | safe }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+</div>
+
+<div class="page">
+  {% if experience_page_two %}
+  <section>
+    <div class="section-title">Work Experience</div>
+    {% for item in experience_page_two %}
+    <div class="exp-item soft-break">
+      <div class="exp-header">
+        <span class="company">{{ item.company | company_name }}{% if item.company | company_note %} <span style="font-weight:400;color:#888;">{{ item.company | company_note }}</span>{% endif %}</span>
+        <span class="dates">{{ item.startDate | join_date_range(item.endDate) }}</span>
+      </div>
+      <div class="exp-position">{{ item.position }}</div>
+      <div class="exp-location">{{ item.location | collapse_lines }}</div>
+      <ul>
+        {% for highlight in item.highlights %}
+        <li>{{ highlight | safe }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  <section class="soft-break">
+    <div class="section-title">Education</div>
+    {% for item in cv.education %}
+    <div class="edu-item">
+      <span class="degree">{{ item.area }}</span>
+      &nbsp;·&nbsp;
+      <span class="institution">{{ item.institution }}</span>
+        <div class="edu-meta">{{ item.startDate | join_date_range(item.endDate) }}{% if item.grade %} &nbsp;·&nbsp; {{ item.grade | safe }}{% endif %}</div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section class="soft-break">
+    <div class="section-title">Certifications &amp; Languages</div>
+    <div class="two-col">
+      <div>
+        <ul class="certs-list">
+          {% for item in cv.certifications %}
+          <li>{{ item | safe }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        <ul class="lang-list">
+          {% for item in cv.languages %}
+          <li>{{ item.language }}{% if item.fluency %} <span class="level">— {{ item.fluency }}</span>{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="soft-break">
+    <div class="section-title">Volunteering &amp; Community</div>
+    {% for item in cv.volunteers %}
+    <div class="vol-item">
+      <span><span class="org">{{ item.organization }}</span>{% if item.position and item.position != item.organization %} — {{ item.position }}{% endif %}</span>
+      <span class="vol-period">{{ item.period }}</span>
+    </div>
+    {% endfor %}
+  </section>
+</div>
+</body>
+</html>

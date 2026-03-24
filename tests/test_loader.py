@@ -25,7 +25,7 @@ def test_optional_sections_default_to_empty(tmp_path: Path) -> None:
     assert cv.introduction == ""
     assert cv.experience == []
     assert cv.certifications == []
-    assert cv.professional_focus.details == []
+    assert cv.languages == []
 
 
 def test_loader_supports_aliases_and_nested_sections(tmp_path: Path) -> None:
@@ -44,8 +44,6 @@ cv:
     links:
       LinkedIn: https://linkedin.com/in/jane
   summary: Builds robust distributed systems.
-  expertise:
-    - Platform Architecture
   work_experience:
     - employer: Example Corp
       role: Staff Engineer
@@ -54,9 +52,6 @@ cv:
       city: Remote
       achievements:
         - Led migration
-  projects:
-    - title: Internal Platform
-      summary: Reduced deployment time.
   competencies:
     Backend:
       - Python
@@ -64,17 +59,17 @@ cv:
   academics:
     - school: Example University
       degree: M.Sc. Computer Science
-      year: 2019
+      start_date: 2017
+      end_date: 2019
   certs:
     - AWS SAA
+  languages:
+    - language: English
+      fluency: Fluent
   volunteering:
     - org: Open Source Org
       role: Maintainer
       duration: 2021-2024
-  focus:
-    summary: Designing systems that
-    bullets:
-      - Scale safely
 """,
         encoding="utf-8",
     )
@@ -87,14 +82,15 @@ cv:
     assert cv.basics.phone == "+1 555 111 2222"
     assert cv.basics.location == "Austin, USA"
     assert cv.introduction == "Builds robust distributed systems."
-    assert cv.core_expertise == ["Platform Architecture"]
     assert cv.experience[0].company == "Example Corp"
     assert cv.experience[0].position == "Staff Engineer"
     assert cv.experience[0].highlights == ["Led migration"]
-    assert cv.selected_projects[0].name == "Internal Platform"
     assert cv.skills[0].category == "Backend"
     assert cv.skills[0].keywords == ["Python", "Go"]
     assert cv.education[0].institution == "Example University"
+    assert cv.education[0].startDate == "2017"
+    assert cv.education[0].endDate == "2019"
     assert cv.certifications == ["AWS SAA"]
+    assert cv.languages[0].language == "English"
+    assert cv.languages[0].fluency == "Fluent"
     assert cv.volunteers[0].organization == "Open Source Org"
-    assert cv.professional_focus.details == ["Scale safely"]
